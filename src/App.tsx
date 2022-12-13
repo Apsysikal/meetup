@@ -4,8 +4,6 @@ import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 import { RouteObject } from "react-router-dom";
 
-import { CssBaseline } from "@mui/material";
-
 import { Layout } from "pages/Layout";
 import { NotFound } from "pages/NotFound";
 import { Home } from "pages/Home";
@@ -42,7 +40,6 @@ const router = createBrowserRouter(routes);
 function App() {
   return (
     <>
-      <CssBaseline />
       <RouterProvider router={router} />
     </>
   );
