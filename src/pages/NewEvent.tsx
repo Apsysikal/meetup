@@ -1,39 +1,34 @@
 import React from "react";
+import { useState } from "react";
 
-const days = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31,
-];
+import { isSameDay } from "date-fns";
 
-const CalendarDayButton = ({
-  day,
-  today = false,
-  selected = false,
-}: {
-  day: string;
-  today?: boolean;
-  selected?: boolean;
-}) => {
-  let classNames =
-    "text-xs font-medium text-slate-600 text-center p-1 w-7 h-7 rounded-full hover:bg-sky-500 hover:text-white";
-
-  if (today) classNames = classNames.concat(" border-2 border-slate-300");
-  if (selected) classNames = classNames.concat(" bg-sky-500 text-white");
-
-  return (
-    <>
-      <button className={classNames}>{day}</button>
-    </>
-  );
-};
+import { Calendar } from "components/Calendar";
 
 export const NewEvent = () => {
+  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+  const [meetings, setMeetings] = useState<Date[]>([]);
+
+  const handleDateClick = (date: Date) => {
+    return setSelectedDates((currentDates) => {
+      const updatedDates = [...currentDates];
+      const index = currentDates.findIndex((day) => isSameDay(day, date));
+
+      if (index === -1) {
+        return [...updatedDates, date];
+      }
+
+      updatedDates.splice(index, 1);
+      return updatedDates;
+    });
+  };
+
   return (
     <>
       <div>
         <div className="max-w-md mx-auto my-auto">
           <div className="p-3 border border-gray-100 rounded-md shadow-md">
-            <form action="post" className="flex flex-col gap-2 items-center">
+            <div className="flex flex-col gap-2 items-center">
               <div className="flex flex-col gap-1">
                 <label
                   htmlFor="title"
@@ -83,49 +78,14 @@ export const NewEvent = () => {
                 <span className="text-xs font-semibold text-slate-700">
                   Date
                 </span>
-                <div>
-                  <div className="grid grid-cols-7 gap-1 items-center">
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      M
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      T
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      W
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      T
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      F
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      S
-                    </div>
-                    <div className="text-xs text-center font-normal text-slate-400">
-                      S
-                    </div>
-                    <span className="col-span-7 h-1" />
-                    {days.map((day) => {
-                      const today = 13;
-                      const selected = [1, 18, 23];
-
-                      const isToday = day === today;
-                      const isSelected = selected.includes(day);
-
-                      return (
-                        <CalendarDayButton
-                          day={String(day)}
-                          today={isToday}
-                          selected={isSelected}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
+                <Calendar
+                  selectedDates={selectedDates}
+                  meetings={meetings}
+                  onDateClick={handleDateClick}
+                />
               </div>
-            </form>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
