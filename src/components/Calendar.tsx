@@ -13,9 +13,12 @@ import { startOfWeek } from "date-fns";
 import { endOfWeek } from "date-fns";
 import { isSameMonth } from "date-fns";
 import { isSameDay } from "date-fns";
+import { isAfter } from "date-fns";
+import { isBefore } from "date-fns";
 
 import { ChevronLeft } from "@mui/icons-material";
 import { ChevronRight } from "@mui/icons-material";
+import { RemoveCircle } from "@mui/icons-material";
 
 type CalendarProps = {
   selectedDates: Date[];
@@ -115,7 +118,7 @@ export const Calendar = ({
             });
 
             return (
-              <div key={index}>
+              <div key={index} className="text-center mx-auto">
                 <button
                   type="button"
                   onClick={() => onDateClick(day)}
@@ -136,7 +139,7 @@ export const Calendar = ({
                 </button>
                 <div
                   className={classNames([
-                    "h-1 w-1 rounded-full mx-auto",
+                    "h-1 w-1 rounded-full mx-auto mt-1",
                     hasMeeting && "bg-sky-500",
                   ])}
                 ></div>
@@ -144,6 +147,35 @@ export const Calendar = ({
             );
           })}
         </div>
+        {meetings
+          .filter((meeting) =>
+            selectedDates.some((day) => {
+              return isSameDay(day, meeting);
+            })
+          )
+          .sort((a, b) => {
+            if (isAfter(a, b)) return 1;
+            if (isBefore(a, b)) return -1;
+            return 0;
+          })
+          .map((meeting) => {
+            return (
+              <div className="flex flex-row items-center justify-center gap-2">
+                <time
+                  dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
+                  className="text-sm font-normal text-slate-500"
+                >
+                  {formatDate(meeting, "dd MMMM HH:mm")}
+                </time>
+                <button
+                  type="button"
+                  className="text-sm font-medium text-slate-500 rounded-full text-center h-full"
+                >
+                  {<RemoveCircle fontSize="small" />}
+                </button>
+              </div>
+            );
+          })}
       </div>
     </>
   );
