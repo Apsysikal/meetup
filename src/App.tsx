@@ -7,7 +7,13 @@ import { RouteObject } from "react-router-dom";
 import { Layout } from "pages/Layout";
 import { NotFound } from "pages/NotFound";
 import { Home } from "pages/Home";
+
 import { NewEvent } from "pages/NewEvent";
+import { action as newEventAction } from "pages/NewEvent";
+
+import { Event } from "pages/Event";
+import { loader as eventLoader } from "pages/Event";
+import { action as eventAction } from "pages/Event";
 
 const routes: RouteObject[] = [
   {
@@ -22,7 +28,16 @@ const routes: RouteObject[] = [
         path: "/event",
         children: [
           {
+            path: ":eventId",
+            // @ts-ignore
+            loader: eventLoader,
+            // @ts-ignore
+            action: eventAction,
+            element: <Event />,
+          },
+          {
             path: "new",
+            action: newEventAction,
             element: <NewEvent />,
           },
         ],

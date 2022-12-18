@@ -2,19 +2,67 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 
+import { Form } from "react-router-dom";
+import { useActionData } from "react-router-dom";
+import { redirect } from "react-router-dom";
+
 import { isSameDay } from "date-fns";
 import { setHours } from "date-fns";
 import { getHours } from "date-fns";
 import { setMinutes } from "date-fns";
 import { getMinutes } from "date-fns";
+import { isBefore } from "date-fns";
+import { isAfter } from "date-fns";
+import { parseISO } from "date-fns";
 import { parse as parseDate } from "date-fns";
+import { format as formatDate } from "date-fns";
 
 import { Calendar } from "components/Calendar";
+
+import { createMeeting } from "api/meeting";
+
+type ActionErrors = {
+  title?: string;
+  name?: string;
+  email?: string;
+  dates?: string;
+};
+
+export const action = async ({ request }: { request: Request }) => {
+  const formData = await request.formData();
+
+  const title = formData.get("title") as string;
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const dates = formData
+    .getAll("dates")
+    .map((date) => parseISO(date as string));
+
+  const errors: ActionErrors = {};
+
+  if (!title) errors.title = "Title is required";
+  if (!name) errors.name = "Name is required";
+  if (!email) errors.email = "Email is required";
+  if (dates.length === 0) errors.dates = "Minimum one date is required";
+
+  if (Object.keys(errors).length) return errors;
+
+  const meeting = await createMeeting({
+    title,
+    creator: name,
+    creatorEmail: email,
+    dates: dates.map((date) => date.toISOString()),
+  });
+
+  return redirect(`/event/${meeting.id}`);
+};
 
 export const NewEvent = () => {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const [meetings, setMeetings] = useState<Date[]>([]);
-  const meetingStartTime = useRef<HTMLInputElement>(null);
+  const meetingTime = useRef<HTMLInputElement>(null);
+
+  const errors = useActionData() as undefined | ActionErrors;
 
   const handleDateClick = (date: Date) => {
     return setSelectedDates((currentDates) => {
@@ -32,26 +80,20 @@ export const NewEvent = () => {
 
   const handleAddEventClick = () => {
     let newMeetings = [...selectedDates];
-    const meetingTime = parseDate(
-      String(meetingStartTime.current?.value),
+    const time = parseDate(
+      String(meetingTime.current?.value) || "00:00",
       "HH:mm",
       new Date()
     );
 
-    console.debug(meetingTime);
-
     newMeetings = newMeetings.map((m) => {
       let meeting = m;
 
-      meeting = setHours(meeting, getHours(meetingTime));
-      console.debug(meeting);
-      meeting = setMinutes(meeting, getMinutes(meetingTime));
-      console.debug(meeting);
+      meeting = setHours(meeting, getHours(time));
+      meeting = setMinutes(meeting, getMinutes(time));
 
       return meeting;
     });
-
-    console.debug();
 
     setMeetings((currentMeetings) => [...currentMeetings, ...newMeetings]);
     setSelectedDates(() => []);
@@ -62,8 +104,8 @@ export const NewEvent = () => {
       <div>
         <div className="max-w-md mx-auto my-auto">
           <div className="p-3 border border-gray-100 rounded-md shadow-md">
-            <div className="flex flex-col gap-2 items-center">
-              <div className="flex flex-col gap-1 w-full">
+            <Form method="post" className="flex flex-col gap-2 items-center">
+              <p className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="title"
                   className="text-xs font-semibold text-slate-700"
@@ -77,7 +119,12 @@ export const NewEvent = () => {
                   placeholder="What is your event about?"
                   className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 />
-              </div>
+                {Boolean(errors?.title) && (
+                  <span className="text-xs font-normal text-red-400">
+                    {errors?.title}
+                  </span>
+                )}
+              </p>
               <div className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="name"
@@ -92,13 +139,18 @@ export const NewEvent = () => {
                   placeholder="John Doe"
                   className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 />
+                {Boolean(errors?.name) && (
+                  <span className="text-xs font-normal text-red-400">
+                    {errors?.name}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="email"
                   className="text-xs font-semibold text-slate-700"
                 >
-                  Title
+                  Email
                 </label>
                 <input
                   type="email"
@@ -107,6 +159,11 @@ export const NewEvent = () => {
                   placeholder="john.doe@example.com"
                   className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 />
+                {Boolean(errors?.title) && (
+                  <span className="text-xs font-normal text-red-400">
+                    {errors?.email}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-1 w-full">
                 <span className="text-xs font-semibold text-slate-700">
@@ -117,6 +174,51 @@ export const NewEvent = () => {
                   meetings={meetings}
                   onDateClick={handleDateClick}
                 />
+                {Boolean(errors?.title) && (
+                  <span className="text-xs font-normal text-red-400">
+                    {errors?.dates}
+                  </span>
+                )}
+                <div className="grid grid-cols-5 gap-4 mt-2">
+                  {meetings
+                    // .filter((meeting) =>
+                    //   selectedDates.some((day) => {
+                    //     return isSameDay(day, meeting);
+                    //   })
+                    // )
+                    .sort((a, b) => {
+                      if (isAfter(a, b)) return 1;
+                      if (isBefore(a, b)) return -1;
+                      return 0;
+                    })
+                    .map((meeting, index) => {
+                      return (
+                        <div
+                          key={`meeting-${index}`}
+                          className="flex flex-col items-center text-center"
+                        >
+                          <input
+                            type="datetime"
+                            hidden
+                            name="dates"
+                            defaultValue={meeting.toISOString()}
+                          />
+                          <time
+                            dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
+                            className="border rounded-md text-sm font-medium border-sky-500 overflow-hidden"
+                          >
+                            <div className="bg-sky-500 text-white px-2">
+                              <div>{formatDate(meeting, "dd")}</div>
+                              <div>{formatDate(meeting, "MMM")}</div>
+                            </div>
+                            <div className="text-slate-600">
+                              {formatDate(meeting, "HH:mm")}
+                            </div>
+                          </time>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
               {Boolean(selectedDates.length) ? (
                 <>
@@ -126,9 +228,9 @@ export const NewEvent = () => {
                     </p>
                     <input
                       type="time"
-                      name="startTime"
-                      id="startTime"
-                      ref={meetingStartTime}
+                      name="meetingTime"
+                      id="meetingTime"
+                      ref={meetingTime}
                       required
                       className="text-sm font-normal text-slate-600"
                     />
@@ -152,7 +254,21 @@ export const NewEvent = () => {
                   </p>
                 </div>
               )}
-            </div>
+              {Boolean(meetings.length) && (
+                <>
+                  <div>
+                    <button
+                      type="submit"
+                      name="save"
+                      id="save"
+                      className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </>
+              )}
+            </Form>
           </div>
         </div>
       </div>
