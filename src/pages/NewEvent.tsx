@@ -33,7 +33,7 @@ export const action = async ({ request }: { request: Request }) => {
 
   const title = formData.get("title") as string;
   const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
+  // const email = formData.get("email") as string;
   const dates = formData
     .getAll("dates")
     .map((date) => parseISO(date as string));
@@ -42,7 +42,7 @@ export const action = async ({ request }: { request: Request }) => {
 
   if (!title) errors.title = "Title is required";
   if (!name) errors.name = "Name is required";
-  if (!email) errors.email = "Email is required";
+  // if (!email) errors.email = "Email is required";
   if (dates.length === 0) errors.dates = "Minimum one date is required";
 
   if (Object.keys(errors).length) return errors;
@@ -50,11 +50,11 @@ export const action = async ({ request }: { request: Request }) => {
   const meeting = await createMeeting({
     title,
     creator: name,
-    creatorEmail: email,
+    creatorEmail: "",
     dates: dates.map((date) => date.toISOString()),
   });
 
-  return redirect(`/event/${meeting.id}`);
+  return redirect(`/event/${meeting.id}/results`);
 };
 
 export const NewEvent = () => {
@@ -101,9 +101,9 @@ export const NewEvent = () => {
 
   return (
     <>
-      <div>
-        <div className="max-w-md mx-auto my-auto">
-          <div className="p-3 border border-gray-100 rounded-md shadow-md">
+      <div className="w-full">
+        <div>
+          <div className="w-full">
             <Form method="post" className="flex flex-col gap-2 items-center">
               <p className="flex flex-col gap-1 w-full">
                 <label
@@ -145,7 +145,7 @@ export const NewEvent = () => {
                   </span>
                 )}
               </div>
-              <div className="flex flex-col gap-1 w-full">
+              {/* <div className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="email"
                   className="text-xs font-semibold text-slate-700"
@@ -159,101 +159,98 @@ export const NewEvent = () => {
                   placeholder="john.doe@example.com"
                   className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 />
-                {Boolean(errors?.title) && (
+                {Boolean(errors?.email) && (
                   <span className="text-xs font-normal text-red-400">
                     {errors?.email}
                   </span>
                 )}
-              </div>
+              </div> */}
               <div className="flex flex-col gap-1 w-full">
                 <span className="text-xs font-semibold text-slate-700">
                   Date
                 </span>
-                <Calendar
-                  selectedDates={selectedDates}
-                  meetings={meetings}
-                  onDateClick={handleDateClick}
-                />
-                {Boolean(errors?.title) && (
-                  <span className="text-xs font-normal text-red-400">
+                <div className="border border-gray-100 rounded-md shadow-md p-3">
+                  <Calendar
+                    selectedDates={selectedDates}
+                    meetings={meetings}
+                    onDateClick={handleDateClick}
+                  />
+                </div>
+                {Boolean(errors?.dates) && (
+                  <span className="dext-xs font-normal text-red-400">
                     {errors?.dates}
                   </span>
                 )}
-                <div className="grid grid-cols-5 gap-4 mt-2">
-                  {meetings
-                    // .filter((meeting) =>
-                    //   selectedDates.some((day) => {
-                    //     return isSameDay(day, meeting);
-                    //   })
-                    // )
-                    .sort((a, b) => {
-                      if (isAfter(a, b)) return 1;
-                      if (isBefore(a, b)) return -1;
-                      return 0;
-                    })
-                    .map((meeting, index) => {
-                      return (
-                        <div
-                          key={`meeting-${index}`}
-                          className="flex flex-col items-center text-center"
-                        >
-                          <input
-                            type="datetime"
-                            hidden
-                            name="dates"
-                            defaultValue={meeting.toISOString()}
-                          />
-                          <time
-                            dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
-                            className="border rounded-md text-sm font-medium border-sky-500 overflow-hidden"
-                          >
-                            <div className="bg-sky-500 text-white px-2">
-                              <div>{formatDate(meeting, "dd")}</div>
-                              <div>{formatDate(meeting, "MMM")}</div>
-                            </div>
-                            <div className="text-slate-600">
-                              {formatDate(meeting, "HH:mm")}
-                            </div>
-                          </time>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-              {Boolean(selectedDates.length) ? (
-                <>
-                  <div className="flex flex-row gap-1 items-center w-full justify-center">
-                    <p className="text-sm font-normal text-slate-600">
-                      Event time:
-                    </p>
-                    <input
-                      type="time"
-                      name="meetingTime"
-                      id="meetingTime"
-                      ref={meetingTime}
-                      required
-                      className="text-sm font-normal text-slate-600"
-                    />
+                {Boolean(selectedDates.length) ? (
+                  <div className="flex flex-col items-center">
+                    <div className="flex flex-row gap-1 items-center w-full justify-center">
+                      <p className="text-sm font-normal text-slate-600">
+                        Event time:
+                      </p>
+                      <input
+                        type="time"
+                        name="meetingTime"
+                        id="meetingTime"
+                        ref={meetingTime}
+                        required
+                        className="text-sm font-normal text-slate-600"
+                      />
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        name="addEvent"
+                        id="addEvent"
+                        onClick={() => handleAddEventClick()}
+                        className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
+                      >
+                        Add Options
+                      </button>
+                    </div>
                   </div>
+                ) : (
                   <div>
-                    <button
-                      type="button"
-                      name="addEvent"
-                      id="addEvent"
-                      onClick={() => handleAddEventClick()}
-                      className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
-                    >
-                      Add Event
-                    </button>
+                    <p className="text-sm font-normal text-slate-300 text-center">
+                      Select one or multiple dates in the calendar
+                    </p>
                   </div>
-                </>
-              ) : (
-                <div>
-                  <p className="text-sm font-normal text-slate-300">
-                    Select one or multiple dates in the calendar
-                  </p>
-                </div>
-              )}
+                )}
+              </div>
+              <div className="flex flex-col w-full items-start">
+                <p className="text-xs font-semibold text-slate-700 mb-1">
+                  Current Voting Options
+                </p>
+                {meetings
+                  // .filter((meeting) =>
+                  //   selectedDates.some((day) => {
+                  //     return isSameDay(day, meeting);
+                  //   })
+                  // )
+                  .sort((a, b) => {
+                    if (isAfter(a, b)) return 1;
+                    if (isBefore(a, b)) return -1;
+                    return 0;
+                  })
+                  .map((meeting, index) => {
+                    return (
+                      <div key={`meeting-${index}`} className="flex flex-row">
+                        <input
+                          type="datetime"
+                          hidden
+                          name="dates"
+                          defaultValue={meeting.toISOString()}
+                        />
+                        <time
+                          dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
+                          className="text-xs font-medium flex flex-row w-full text-slate-600"
+                        >
+                          {formatDate(meeting, "dd MMMM yyyy HH:mm")}
+                        </time>
+                      </div>
+                    );
+                  })}
+              </div>
+
               {Boolean(meetings.length) && (
                 <>
                   <div>
@@ -263,7 +260,7 @@ export const NewEvent = () => {
                       id="save"
                       className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
                     >
-                      Save
+                      Create Poll
                     </button>
                   </div>
                 </>

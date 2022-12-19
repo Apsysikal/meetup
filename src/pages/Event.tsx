@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useActionData } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import { parseISO } from "date-fns";
 import { format as formatDate } from "date-fns";
 
 import { getMeeting } from "api/meeting";
+import { createMeetingResponse } from "api/meeting";
 
 type LoaderParams = {
   params: {
@@ -29,15 +30,21 @@ export const action = async ({
   const formData = await request.formData();
 
   const name = formData.get("name") as string;
-  const dates = formData.getAll("checkbox"); // Gets only checked dates
-
-  console.debug(params.eventId);
+  const dates = formData.getAll("checkbox") as string[]; // Gets only checked dates
 
   const errors: ActionErrors = {};
 
   if (!name) errors.name = "Name is required";
 
   if (Object.keys(errors).length) return errors;
+
+  await createMeetingResponse({
+    name,
+    dates,
+    meetingId: params.eventId,
+  });
+
+  return redirect("results");
 };
 
 export const loader = async ({ params }: LoaderParams) => {
@@ -52,7 +59,7 @@ export const Event = () => {
   return (
     <>
       <div className="max-w-md mx-auto my-auto">
-        <div className="p-3 border border-gray-100 rounded-md shadow-md">
+        <div>
           <article>
             <h3 className="text-xl font-bold text-slate-600">
               {meeting.title}

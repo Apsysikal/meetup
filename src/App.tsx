@@ -15,6 +15,9 @@ import { Event } from "pages/Event";
 import { loader as eventLoader } from "pages/Event";
 import { action as eventAction } from "pages/Event";
 
+import { EventResults } from "pages/EventResults";
+import { loader as eventResultsLoader } from "pages/EventResults";
+
 const routes: RouteObject[] = [
   {
     path: "/",
@@ -34,6 +37,12 @@ const routes: RouteObject[] = [
             // @ts-ignore
             action: eventAction,
             element: <Event />,
+          },
+          {
+            path: ":eventId/results",
+            // @ts-ignore
+            loader: eventResultsLoader,
+            element: <EventResults />,
           },
           {
             path: "new",

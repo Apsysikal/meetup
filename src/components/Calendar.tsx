@@ -13,8 +13,6 @@ import { startOfWeek } from "date-fns";
 import { endOfWeek } from "date-fns";
 import { isSameMonth } from "date-fns";
 import { isSameDay } from "date-fns";
-import { isAfter } from "date-fns";
-import { isBefore } from "date-fns";
 
 import { ChevronLeft } from "@mui/icons-material";
 import { ChevronRight } from "@mui/icons-material";
@@ -73,7 +71,7 @@ export const Calendar = ({
 
   return (
     <>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 w-full">
         <div className="flex flex-row justify-between items-center mt-4 mb-4">
           <span className="text-sm font-medium text-slate-600 px-1">
             {formatDate(firstDayOfCurrentMonth, "MMMM yyyy")}
