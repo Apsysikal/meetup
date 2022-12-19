@@ -9,7 +9,7 @@ export const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-sky-500 text-white sticky top-0 shadow-lg">
-        <div className="max-w-md px-3 py-4 mx-auto flex flex-row gap-2 items-center">
+        <div className="max-w-lg px-3 py-4 mx-auto flex flex-row gap-2 items-center">
           <h1 className="flex-grow text-3xl font-bold lowercase">Meetup</h1>
           <nav>
             <ul className="flex flex-row gap-4 text-sm font-medium">
@@ -35,11 +35,11 @@ export const Layout = () => {
           </nav>
         </div>
       </header>
-      <main className="max-w-md mx-auto w-full p-3 flex-grow">
+      <main className="max-w-lg mx-auto w-full p-3 flex-grow">
         <Outlet />
       </main>
       <footer className="bg-gray-800 text-gray-300 relative bottom-0">
-        <div className="max-w-md mx-auto px-3 py-4">
+        <div className="max-w-lg mx-auto px-3 py-4">
           <p className="flex flex-row gap-1 text-xs">
             Created by
             <a

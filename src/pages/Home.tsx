@@ -20,8 +20,8 @@ export const Home = () => {
           />
         </div>
         <div className="flex flex-col items-center">
-          <h3 className="text-3xl font-bold text-slate-700 text-center">
-            Welcome to meetup
+          <h3 className="text-3xl font-bold text-slate-600 text-center">
+            Welcome to <span className="lowercase text-sky-500">Meetup</span>
           </h3>
           <p className="text-md font-medium text-slate-600 text-center">
             Use our app to easily plan events with your friends. Click one of

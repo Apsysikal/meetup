@@ -60,7 +60,7 @@ export const EventResults = () => {
 
   return (
     <>
-      <div className="max-w-md mx-auto my-auto">
+      <div className="w-full mx-auto my-auto">
         <div>
           <article>
             <h3 className="text-xl font-bold text-slate-600">
@@ -142,7 +142,7 @@ export const EventResults = () => {
                   onClick={() => {
                     navigator.clipboard.writeText(pollLink);
                   }}
-                  className="px-2 py-1 hover:bg-gray-200 active:bg-gray-300"
+                  className="px-2 py-1 grow hover:bg-gray-200 active:bg-gray-300"
                 >
                   Copy
                 </button>
