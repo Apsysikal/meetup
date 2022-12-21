@@ -58,7 +58,7 @@ export const Event = () => {
 
   return (
     <>
-      <div className="max-w-md mx-auto my-auto">
+      <div>
         <div>
           <article>
             <h3 className="text-xl font-bold text-slate-600">

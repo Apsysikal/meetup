@@ -16,6 +16,9 @@ import { isAfter } from "date-fns";
 import { parseISO } from "date-fns";
 import { parse as parseDate } from "date-fns";
 import { format as formatDate } from "date-fns";
+import { isEqual } from "date-fns";
+
+import { RemoveCircle } from "@mui/icons-material";
 
 import { Calendar } from "components/Calendar";
 
@@ -97,6 +100,16 @@ export const NewEvent = () => {
 
     setMeetings((currentMeetings) => [...currentMeetings, ...newMeetings]);
     setSelectedDates(() => []);
+  };
+
+  const handleOptionDeleteClick = (date: Date) => {
+    let newMeetings = [...meetings];
+
+    newMeetings = meetings.filter((meeting) => {
+      return !isEqual(meeting, date);
+    });
+
+    setMeetings([...newMeetings]);
   };
 
   return (
@@ -216,7 +229,7 @@ export const NewEvent = () => {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col w-full items-start">
+              <div className="flex flex-col w-full items-start gap-1">
                 <p className="text-xs font-semibold text-slate-700 mb-1">
                   Current Voting Options
                 </p>
@@ -233,7 +246,10 @@ export const NewEvent = () => {
                   })
                   .map((meeting, index) => {
                     return (
-                      <div key={`meeting-${index}`} className="flex flex-row">
+                      <div
+                        key={`meeting-${index}`}
+                        className="w-full flex flex-row p-2 border border-gray-300 rounded-md shadow-md items-center"
+                      >
                         <input
                           type="datetime"
                           hidden
@@ -246,6 +262,13 @@ export const NewEvent = () => {
                         >
                           {formatDate(meeting, "dd MMMM yyyy HH:mm")}
                         </time>
+                        <button
+                          type="button"
+                          onClick={() => handleOptionDeleteClick(meeting)}
+                          className="flex text-slate-600 hover:text-red-600"
+                        >
+                          <RemoveCircle fontSize="inherit" />
+                        </button>
                       </div>
                     );
                   })}
