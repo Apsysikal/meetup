@@ -135,7 +135,7 @@ export const EventResults = () => {
                 Share this link with your friends
               </p>
               <div className="flex flex-row border rounded-md divide-x items-center text-sm font-normal text-slate-600 shadow-md">
-                <p className="shrink px-2 py-1 overflow-clip text-ellipsis">
+                <p className="shrink px-2 py-1 whitespace-nowrap overflow-clip text-ellipsis">
                   {pollLink}
                 </p>
                 <button
