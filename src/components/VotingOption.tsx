@@ -11,7 +11,7 @@ type VotingOptionProps = {
 
 export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
   return (
-    <div className="w-full flex flex-row p-2 border border-sky-500 rounded-md shadow-md items-center">
+    <div className="w-full flex flex-row p-2 border border-sky-600 rounded-md shadow-md items-center">
       <input
         type="datetime"
         hidden

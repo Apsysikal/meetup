@@ -15,10 +15,7 @@ import { isBefore } from "date-fns";
 import { isAfter } from "date-fns";
 import { parseISO } from "date-fns";
 import { parse as parseDate } from "date-fns";
-import { format as formatDate } from "date-fns";
 import { isEqual } from "date-fns";
-
-import { RemoveCircle } from "@mui/icons-material";
 
 import { Calendar } from "components/Calendar";
 import { TextInput } from "components/forms/TextInput";
@@ -153,31 +150,11 @@ export const NewEvent = () => {
                   </span>
                 )}
               </p>
-              {/* <div className="flex flex-col gap-1 w-full">
-                <label
-                  htmlFor="email"
-                  className="text-xs font-semibold text-slate-700"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="john.doe@example.com"
-                  className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                />
-                {Boolean(errors?.email) && (
-                  <span className="text-xs font-normal text-red-500">
-                    {errors?.email}
-                  </span>
-                )}
-              </div> */}
               <div className="flex flex-col gap-1 w-full">
                 <span className="text-xs font-semibold text-slate-700">
                   Date
                 </span>
-                <div className="border border-sky-500 rounded-md shadow-md px-2 pb-2">
+                <div className="border border-sky-600 rounded-md shadow-md px-2 pb-2">
                   <Calendar
                     selectedDates={selectedDates}
                     meetings={meetings}

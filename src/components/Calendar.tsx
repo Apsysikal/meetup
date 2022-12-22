@@ -73,21 +73,21 @@ export const Calendar = ({
     <>
       <div className="flex flex-col gap-1 w-full">
         <div className="flex flex-row justify-between items-center mt-4 mb-4">
-          <span className="text-sm font-medium text-slate-600 px-1">
+          <span className="text-sm font-medium text-slate-700 px-1">
             {formatDate(firstDayOfCurrentMonth, "MMMM yyyy")}
           </span>
           <div className="flex flex-row gap-2">
             <button
               type="button"
               onClick={() => previousMonth()}
-              className="text-sm font-medium text-slate-600 rounded-full hover:bg-gray-100 text-center"
+              className="text-sm font-medium text-slate-700 rounded-full hover:bg-gray-100 text-center"
             >
               {<ChevronLeft />}
             </button>
             <button
               type="button"
               onClick={() => nextMonth()}
-              className="text-sm font-medium text-slate-600 rounded-full hover:bg-gray-100 text-center"
+              className="text-sm font-medium text-slate-700 rounded-full hover:bg-gray-100 text-center"
             >
               {<ChevronRight />}
             </button>
@@ -123,11 +123,14 @@ export const Calendar = ({
                     index === 0 && dayStartClasses[getDay(day)],
                     isToday(day) && "border-2 border-gray-300",
                     isSameMonth(day, firstDayOfCurrentMonth) &&
-                      "text-slate-600",
+                      !isSelected &&
+                      "text-slate-700",
+                    isSameMonth(day, firstDayOfCurrentMonth) &&
+                      isSelected &&
+                      "bg-sky-600 text-white",
                     !isSameMonth(day, firstDayOfCurrentMonth) &&
                       "text-gray-300",
-                    isSelected && "bg-sky-500 text-white",
-                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-sky-500 hover:text-white mx-auto",
+                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-sky-600 hover:text-white mx-auto",
                   ])}
                 >
                   <time dateTime={formatDate(day, "yyyy-MM-dd")}>
@@ -137,7 +140,7 @@ export const Calendar = ({
                 <div
                   className={classNames([
                     "h-1 w-1 rounded-full mx-auto mt-1",
-                    hasMeeting && "bg-sky-500",
+                    hasMeeting && "bg-sky-600",
                   ])}
                 ></div>
               </div>

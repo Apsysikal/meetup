@@ -21,7 +21,7 @@ export const Home = () => {
         </div>
         <div className="flex flex-col items-center">
           <h3 className="text-3xl font-bold text-slate-600 text-center">
-            Welcome to <span className="lowercase text-sky-500">Meetup</span>
+            Welcome to <span className="lowercase text-sky-600">Meetup</span>
           </h3>
           <p className="text-md font-medium text-slate-600 text-center">
             Use our app to easily plan events with your friends. Click one of
@@ -31,7 +31,7 @@ export const Home = () => {
         <div>
           <button
             onClick={() => navigate("event/new")}
-            className="text-md font-normal uppercase text-white px-3 py-1 leading-8 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
+            className="text-md font-normal uppercase text-white px-3 py-1 leading-8 bg-sky-600 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
           >
             <div className="flex flex-row gap-1 items-center">
               <p>Plan an Event</p>
@@ -43,7 +43,7 @@ export const Home = () => {
           <button
             disabled
             onClick={() => navigate("login")}
-            className="text-md font-normal uppercase text-sky-500 px-3 py-1 leading-8 bg-white rounded-md border border-sky-500 shadow-md disabled:text-gray-200 disabled:border-gray-200 disabled:shadow-none"
+            className="text-md font-normal uppercase text-sky-600 px-3 py-1 leading-8 bg-white rounded-md border border-sky-600 shadow-md disabled:text-gray-200 disabled:border-gray-200 disabled:shadow-none"
           >
             <div className="flex flex-row gap-1 items-center">
               <p>Login</p>

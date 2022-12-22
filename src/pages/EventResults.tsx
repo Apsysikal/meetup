@@ -72,12 +72,12 @@ export const EventResults = () => {
             <p className="text-xs font-medium text-slate-700 mt-2">
               Voting Results
             </p>
-            <div className="overflow-auto border border-sky-500 rounded-md mt-1 shadow-md">
+            <div className="overflow-auto border border-sky-600 rounded-md mt-1 shadow-md">
               <table className="table-auto w-full">
                 <>
-                  <thead className="text-xs font-bold text-slate-700 border-b border-b-sky-500">
+                  <thead className="text-xs font-bold text-slate-700 border-b border-b-sky-600">
                     <tr>
-                      <th className="text-left px-2 h-8 border-r border-r-sky-500">
+                      <th className="text-left px-2 h-8 border-r border-r-sky-600">
                         Name
                       </th>
                       {meeting.dates.map((rawDate, index) => {
@@ -89,7 +89,7 @@ export const EventResults = () => {
                             className={classNames([
                               rawDate === mostVotedDate().date &&
                                 "bg-amber-400",
-                              "text-center px-2 h-8 border-r border-r-sky-500",
+                              "text-center px-2 h-8 border-r border-r-sky-600",
                               "last:border-r-0",
                             ])}
                           >
@@ -105,9 +105,9 @@ export const EventResults = () => {
                       return (
                         <tr
                           key={`date-row-${index}`}
-                          className="border-b border-b-sky-500 last:border-b-0"
+                          className="border-b border-b-sky-600 last:border-b-0"
                         >
-                          <td className="text-left px-2 border-r border-r-sky-500 whitespace-nowrap overflow-clip text-ellipsis">
+                          <td className="text-left px-2 border-r border-r-sky-600 whitespace-nowrap overflow-clip text-ellipsis">
                             {response.name}
                           </td>
                           {meeting.dates.map((date, index) => {
@@ -119,7 +119,7 @@ export const EventResults = () => {
                                 className={classNames([
                                   selected && "bg-green-400",
                                   !selected && "bg-red-400",
-                                  "text-center px-2 border-r border-r-sky-500",
+                                  "text-center px-2 border-r border-r-sky-600",
                                   "last:border-r-0",
                                 ])}
                               ></td>
@@ -136,7 +136,7 @@ export const EventResults = () => {
               <p className="text-xs font-medium text-slate-700">
                 Share this link with your friends
               </p>
-              <div className="flex flex-row border border-sky-500 rounded-md divide-x divide-sky-500 items-center text-sm font-normal text-slate-700 shadow-md overflow-hidden">
+              <div className="flex flex-row border border-sky-600 rounded-md divide-x divide-sky-600 items-center text-sm font-normal text-slate-700 shadow-md overflow-hidden">
                 <p className="shrink px-2 py-1 whitespace-nowrap overflow-clip text-ellipsis">
                   {pollLink}
                 </p>
