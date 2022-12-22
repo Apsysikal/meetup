@@ -21,6 +21,9 @@ import { isEqual } from "date-fns";
 import { RemoveCircle } from "@mui/icons-material";
 
 import { Calendar } from "components/Calendar";
+import { TextInput } from "components/forms/TextInput";
+import { Button } from "components/Button";
+import { VotingOption } from "components/VotingOption";
 
 import { createMeeting } from "api/meeting";
 
@@ -125,12 +128,10 @@ export const NewEvent = () => {
                 >
                   Title
                 </label>
-                <input
-                  type="text"
+                <TextInput
                   name="title"
                   id="title"
                   placeholder="What is your event about?"
-                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
                 />
                 {Boolean(errors?.title) && (
                   <span className="text-xs font-normal text-red-500">
@@ -145,13 +146,7 @@ export const NewEvent = () => {
                 >
                   Name
                 </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="John Doe"
-                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
-                />
+                <TextInput name="name" id="name" placeholder="John Doe" />
                 {Boolean(errors?.name) && (
                   <span className="text-xs font-normal text-red-500">
                     {errors?.name}
@@ -208,15 +203,14 @@ export const NewEvent = () => {
                       />
                     </div>
                     <div>
-                      <button
+                      <Button
                         type="button"
                         name="addEvent"
                         id="addEvent"
                         onClick={() => handleAddEventClick()}
-                        className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
                       >
                         Add Options
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 ) : (
@@ -232,11 +226,6 @@ export const NewEvent = () => {
                   Current Voting Options
                 </p>
                 {meetings
-                  // .filter((meeting) =>
-                  //   selectedDates.some((day) => {
-                  //     return isSameDay(day, meeting);
-                  //   })
-                  // )
                   .sort((a, b) => {
                     if (isAfter(a, b)) return 1;
                     if (isBefore(a, b)) return -1;
@@ -244,44 +233,20 @@ export const NewEvent = () => {
                   })
                   .map((meeting, index) => {
                     return (
-                      <div
+                      <VotingOption
                         key={`meeting-${index}`}
-                        className="w-full flex flex-row p-2 border border-sky-500 rounded-md shadow-md items-center"
-                      >
-                        <input
-                          type="datetime"
-                          hidden
-                          name="dates"
-                          defaultValue={meeting.toISOString()}
-                        />
-                        <time
-                          dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
-                          className="text-xs font-medium flex flex-row w-full text-slate-700"
-                        >
-                          {formatDate(meeting, "dd MMMM yyyy HH:mm")}
-                        </time>
-                        <button
-                          type="button"
-                          onClick={() => handleOptionDeleteClick(meeting)}
-                          className="flex text-slate-700 hover:text-red-500"
-                        >
-                          <RemoveCircle fontSize="inherit" />
-                        </button>
-                      </div>
+                        meeting={meeting}
+                        onRemoveClick={handleOptionDeleteClick}
+                      />
                     );
                   })}
               </div>
               {Boolean(meetings.length) && (
                 <>
                   <div>
-                    <button
-                      type="submit"
-                      name="save"
-                      id="save"
-                      className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
-                    >
+                    <Button type="submit" name="save" id="save">
                       Create Poll
-                    </button>
+                    </Button>
                   </div>
                 </>
               )}

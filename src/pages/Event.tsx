@@ -12,6 +12,8 @@ import { format as formatDate } from "date-fns";
 import { getMeeting } from "api/meeting";
 import { createMeetingResponse } from "api/meeting";
 
+import { TextInput } from "components/forms/TextInput";
+
 type LoaderParams = {
   params: {
     eventId: string;
@@ -107,13 +109,7 @@ export const Event = () => {
                 >
                   Name
                 </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="John Doe"
-                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
-                />
+                <TextInput name="name" id="name" placeholder="John Doe" />
                 {Boolean(errors?.name) && (
                   <span className="text-xs font-normal text-red-400">
                     {errors?.name}
