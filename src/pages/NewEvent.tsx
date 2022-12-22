@@ -117,7 +117,7 @@ export const NewEvent = () => {
       <div className="w-full">
         <div>
           <div className="w-full">
-            <Form method="post" className="flex flex-col gap-2 items-center">
+            <Form method="post" className="flex flex-col gap-2">
               <p className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="title"
@@ -130,15 +130,15 @@ export const NewEvent = () => {
                   name="title"
                   id="title"
                   placeholder="What is your event about?"
-                  className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
                 />
                 {Boolean(errors?.title) && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-xs font-normal text-red-500">
                     {errors?.title}
                   </span>
                 )}
               </p>
-              <div className="flex flex-col gap-1 w-full">
+              <p className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="name"
                   className="text-xs font-semibold text-slate-700"
@@ -150,14 +150,14 @@ export const NewEvent = () => {
                   name="name"
                   id="name"
                   placeholder="John Doe"
-                  className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
                 />
                 {Boolean(errors?.name) && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-xs font-normal text-red-500">
                     {errors?.name}
                   </span>
                 )}
-              </div>
+              </p>
               {/* <div className="flex flex-col gap-1 w-full">
                 <label
                   htmlFor="email"
@@ -173,7 +173,7 @@ export const NewEvent = () => {
                   className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 />
                 {Boolean(errors?.email) && (
-                  <span className="text-xs font-normal text-red-400">
+                  <span className="text-xs font-normal text-red-500">
                     {errors?.email}
                   </span>
                 )}
@@ -182,7 +182,7 @@ export const NewEvent = () => {
                 <span className="text-xs font-semibold text-slate-700">
                   Date
                 </span>
-                <div className="border border-gray-100 rounded-md shadow-md p-3">
+                <div className="border border-sky-500 rounded-md shadow-md px-2 pb-2">
                   <Calendar
                     selectedDates={selectedDates}
                     meetings={meetings}
@@ -190,23 +190,21 @@ export const NewEvent = () => {
                   />
                 </div>
                 {Boolean(errors?.dates) && (
-                  <span className="dext-xs font-normal text-red-400">
+                  <span className="text-xs font-normal text-red-500">
                     {errors?.dates}
                   </span>
                 )}
                 {Boolean(selectedDates.length) ? (
-                  <div className="flex flex-col items-center">
-                    <div className="flex flex-row gap-1 items-center w-full justify-center">
-                      <p className="text-sm font-normal text-slate-600">
-                        Event time:
-                      </p>
+                  <div className="flex flex-col my-1 gap-1">
+                    <div className="flex flex-row gap-1 items-center w-full">
+                      <p className=" text-sm text-slate-700">Event time:</p>
                       <input
                         type="time"
                         name="meetingTime"
                         id="meetingTime"
                         ref={meetingTime}
                         required
-                        className="text-sm font-normal text-slate-600"
+                        className="border-none text-sm text-slate-700 focus:border-none focus:ring-0"
                       />
                     </div>
                     <div>
@@ -223,7 +221,7 @@ export const NewEvent = () => {
                   </div>
                 ) : (
                   <div>
-                    <p className="text-sm font-normal text-slate-300 text-center">
+                    <p className="text-xs font-normal text-slate-300">
                       Select one or multiple dates in the calendar
                     </p>
                   </div>
@@ -248,7 +246,7 @@ export const NewEvent = () => {
                     return (
                       <div
                         key={`meeting-${index}`}
-                        className="w-full flex flex-row p-2 border border-gray-300 rounded-md shadow-md items-center"
+                        className="w-full flex flex-row p-2 border border-sky-500 rounded-md shadow-md items-center"
                       >
                         <input
                           type="datetime"
@@ -258,14 +256,14 @@ export const NewEvent = () => {
                         />
                         <time
                           dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
-                          className="text-xs font-medium flex flex-row w-full text-slate-600"
+                          className="text-xs font-medium flex flex-row w-full text-slate-700"
                         >
                           {formatDate(meeting, "dd MMMM yyyy HH:mm")}
                         </time>
                         <button
                           type="button"
                           onClick={() => handleOptionDeleteClick(meeting)}
-                          className="flex text-slate-600 hover:text-red-600"
+                          className="flex text-slate-700 hover:text-red-500"
                         >
                           <RemoveCircle fontSize="inherit" />
                         </button>
@@ -273,7 +271,6 @@ export const NewEvent = () => {
                     );
                   })}
               </div>
-
               {Boolean(meetings.length) && (
                 <>
                   <div>

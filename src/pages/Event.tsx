@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Form, redirect } from "react-router-dom";
+import { Form } from "react-router-dom";
+import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { useActionData } from "react-router-dom";
 
@@ -53,6 +55,7 @@ export const loader = async ({ params }: LoaderParams) => {
 };
 
 export const Event = () => {
+  const navigate = useNavigate();
   const { meeting } = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const errors = useActionData() as undefined | ActionErrors;
 
@@ -67,34 +70,36 @@ export const Event = () => {
             <p className="text-xs font-normal text-slate-400">
               {`Created by: ${meeting.creator}`}
             </p>
-            <Form method="post" className="flex flex-col mt-1">
+            <Form method="post" className="flex flex-col mt-1 gap-2">
               <input
                 type="text"
                 name="meetingId"
                 hidden
                 defaultValue={meeting.id}
               />
-              {meeting.dates.map((date, index) => {
-                const parsedDate = parseISO(date);
+              <div>
+                {meeting.dates.map((date, index) => {
+                  const parsedDate = parseISO(date);
 
-                return (
-                  <div
-                    key={`meeting-${index}`}
-                    className="flex flex-row items-center gap-2"
-                  >
-                    <input
-                      name="checkbox"
-                      type="checkbox"
-                      value={date}
-                      className="appearance-none h-4 w-4 border border-sky-500 rounded-sm checked:bg-sky-500"
-                    />
-                    <p className="flex flex-row gap-2 text-md font-normal text-slate-600">
-                      <span>{formatDate(parsedDate, "dd MMMM yyyy")}</span>
-                      <span>{formatDate(parsedDate, "HH:mm")}</span>
-                    </p>
-                  </div>
-                );
-              })}
+                  return (
+                    <div
+                      key={`meeting-${index}`}
+                      className="flex flex-row items-center gap-2"
+                    >
+                      <input
+                        name="checkbox"
+                        type="checkbox"
+                        value={date}
+                        className="border border-sky-500 rounded-sm checked:bg-sky-500"
+                      />
+                      <p className="flex flex-row gap-2 text-md font-normal text-slate-600">
+                        <span>{formatDate(parsedDate, "dd MMMM yyyy")}</span>
+                        <span>{formatDate(parsedDate, "HH:mm")}</span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
               <div className="flex flex-col gap-1 w-full mt-2">
                 <label
                   htmlFor="name"
@@ -107,7 +112,7 @@ export const Event = () => {
                   name="name"
                   id="name"
                   placeholder="John Doe"
-                  className="text-sm font-normal text-slate-600 border border-gray-300 rounded-md shadow-md px-2 leading-8 ring-none outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                  className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
                 />
                 {Boolean(errors?.name) && (
                   <span className="text-xs font-normal text-red-400">
@@ -115,14 +120,25 @@ export const Event = () => {
                   </span>
                 )}
               </div>
-              <button
-                type="submit"
-                name="save"
-                id="save"
-                className="mt-2 text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
-              >
-                Save
-              </button>
+              <div className="grid grid-cols-1 gap-1 md:grid-cols-2">
+                <button
+                  type="submit"
+                  name="save"
+                  id="save"
+                  className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring-1 active:ring-sky-400 shadow-md"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  name="results"
+                  id="results"
+                  onClick={() => navigate("results")}
+                  className="text-sm font-normal uppercase text-sky-500 px-2 py-1 leading-6 bg-white rounded-md border border-sky-500 hover:bg-slate-100 active:ring-1 active:ring-sky-500 shadow-md"
+                >
+                  See results
+                </button>
+              </div>
             </Form>
           </article>
         </div>
