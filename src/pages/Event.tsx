@@ -67,7 +67,7 @@ export const Event = () => {
       <div>
         <div>
           <article>
-            <h3 className="text-xl font-bold text-slate-600">
+            <h3 className="text-xl font-bold text-slate-700">
               {meeting.title}
             </h3>
             <p className="text-xs font-normal text-slate-400">
