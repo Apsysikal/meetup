@@ -5,6 +5,8 @@ import { Login } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 
+import { ReactComponent as CalendarImage } from "assets/calendar-booking.svg";
+
 import "index.css";
 
 export const Home = () => {
@@ -13,11 +15,8 @@ export const Home = () => {
   return (
     <>
       <div className="flex flex-col gap-3 items-center ">
-        <div>
-          <img
-            src=" https://img.freepik.com/free-vector/businessman-planning-events-deadlines-agenda_74855-6274.jpg?w=1800&t=st=1670784421~exp=1670785021~hmac=8c83dd7260e9734abcade277b726ae992ea2ed8264e47ceef81d52de291eb7c2"
-            alt="Person drawing on a calendard"
-          />
+        <div className="my-10">
+          <CalendarImage className="w-full h-auto" />
         </div>
         <div className="flex flex-col items-center">
           <h3 className="text-3xl font-bold text-slate-600 text-center">
