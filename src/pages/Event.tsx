@@ -13,6 +13,7 @@ import { getMeeting } from "api/meeting";
 import { createMeetingResponse } from "api/meeting";
 
 import { TextInput } from "components/forms/TextInput";
+import { Button } from "components/Button";
 
 type LoaderParams = {
   params: {
@@ -92,7 +93,7 @@ export const Event = () => {
                         name="checkbox"
                         type="checkbox"
                         value={date}
-                        className="border border-sky-500 rounded-sm checked:bg-sky-500"
+                        className="border border-sky-500 rounded-sm checked:bg-sky-500 checked:hover:bg-sky-600"
                       />
                       <p className="flex flex-row gap-2 text-md font-normal text-slate-600">
                         <span>{formatDate(parsedDate, "dd MMMM yyyy")}</span>
@@ -117,23 +118,18 @@ export const Event = () => {
                 )}
               </div>
               <div className="grid grid-cols-1 gap-1 md:grid-cols-2">
-                <button
-                  type="submit"
-                  name="save"
-                  id="save"
-                  className="text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring-1 active:ring-sky-400 shadow-md"
-                >
+                <Button type="submit" name="save" id="save">
                   Save
-                </button>
-                <button
+                </Button>
+                <Button
                   type="button"
                   name="results"
                   id="results"
+                  variant="secondary"
                   onClick={() => navigate("results")}
-                  className="text-sm font-normal uppercase text-sky-500 px-2 py-1 leading-6 bg-white rounded-md border border-sky-500 hover:bg-slate-100 active:ring-1 active:ring-sky-500 shadow-md"
                 >
                   See results
-                </button>
+                </Button>
               </div>
             </Form>
           </article>
