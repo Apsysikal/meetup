@@ -38,9 +38,9 @@ const outlinedClasses = classNames([
 ]);
 
 const textClasses = classNames([
-  "text-sky-700",
-  "hover:bg-slate-100",
-  "active:bg-slate-200",
+  "text-inherit",
+  "hover:bg-slate-100/10",
+  "active:bg-slate-100/20",
 ]);
 
 const smallClasses = classNames([
@@ -65,6 +65,7 @@ export const Button = ({
   children,
   variant="contained",
   size="md",
+  className,
   ...rest
 }: ButtonProps) => {
   const classes = classNames([
@@ -74,7 +75,8 @@ export const Button = ({
     size === "lg" && largeClasses,
     size === "md" && mediumClasses,
     size === "sm" && smallClasses,
-    baseClasses
+    baseClasses,
+    className ? className: ""
   ]);
 
   return (

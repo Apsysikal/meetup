@@ -2,7 +2,7 @@ import React from "react";
 
 import { format as formatDate } from "date-fns";
 
-import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { MinusCircleIcon } from "@heroicons/react/24/solid";
 
 type VotingOptionProps = {
   meeting: Date;
@@ -11,7 +11,7 @@ type VotingOptionProps = {
 
 export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
   return (
-    <div className="w-full flex flex-row p-2 border border-sky-600 rounded-md shadow-md items-center">
+    <div className="w-full flex flex-row p-2 border border-sky-600 rounded-md shadow-md items-center bg-white">
       <input
         type="datetime"
         hidden

@@ -5,6 +5,8 @@ import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 
 import { useNavigate } from "react-router-dom";
 
+import { Button } from "components/Button";
+
 import { ReactComponent as CalendarImage } from "assets/calendar-booking.svg";
 
 import "index.css";
@@ -28,27 +30,15 @@ export const Home = () => {
           </p>
         </div>
         <div>
-          <button
+          <Button
             onClick={() => navigate("event/new")}
-            className="text-md font-normal uppercase text-white px-3 py-1 leading-8 bg-sky-600 rounded-md hover:bg-sky-400 active:ring active:ring-sky-400 shadow-md"
+            size="lg"
           >
-            <div className="flex flex-row gap-1 items-center">
+            <div className="flex flex-row gap-2 items-center">
               <p>Plan an Event</p>
               <CalendarIcon className="h-5 w-5" />
             </div>
-          </button>
-        </div>
-        <div>
-          <button
-            disabled
-            onClick={() => navigate("login")}
-            className="text-md font-normal uppercase text-sky-600 px-3 py-1 leading-8 bg-white rounded-md border border-sky-600 shadow-md disabled:text-gray-200 disabled:border-gray-200 disabled:shadow-none"
-          >
-            <div className="flex flex-row gap-1 items-center">
-              <p>Login</p>
-              <ArrowRightOnRectangleIcon className="h-5 w-5" />
-            </div>
-          </button>
+          </Button>
         </div>
       </div>
     </>

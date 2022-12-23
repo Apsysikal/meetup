@@ -69,8 +69,8 @@ export const Calendar = ({
 
   return (
     <>
-      <div className="flex flex-col gap-1 w-full">
-        <div className="flex flex-row justify-between items-center mt-4 mb-4">
+      <div className="flex flex-col gap-1 w-full bg-white py-1">
+        <div className="flex flex-row justify-between items-center mb-4">
           <span className="text-sm font-medium text-slate-800 px-1">
             {formatDate(firstDayOfCurrentMonth, "MMMM yyyy")}
           </span>
