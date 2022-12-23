@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Event } from "@mui/icons-material";
-import { Login } from "@mui/icons-material";
+import { CalendarIcon } from "@heroicons/react/24/outline";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +34,7 @@ export const Home = () => {
           >
             <div className="flex flex-row gap-1 items-center">
               <p>Plan an Event</p>
-              <Event />
+              <CalendarIcon className="h-5 w-5" />
             </div>
           </button>
         </div>
@@ -46,7 +46,7 @@ export const Home = () => {
           >
             <div className="flex flex-row gap-1 items-center">
               <p>Login</p>
-              <Login />
+              <ArrowRightOnRectangleIcon className="h-5 w-5" />
             </div>
           </button>
         </div>

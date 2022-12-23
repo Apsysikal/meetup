@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@mui/icons-material": "^5.10.16",
+    "@heroicons/react": "^2.0.13",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -59,11 +59,11 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^6.5.15",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
     "@storybook/addon-links": "^6.5.15",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.5.15",
     "@storybook/manager-webpack5": "^6.5.15",
     "@storybook/node-logger": "^6.5.15",
@@ -76,6 +76,7 @@
     "postcss": "^8.4.20",
     "postcss-loader": "^7.0.2",
     "prop-types": "^15.8.1",
+    "storybook-dark-mode": "^2.0.4",
     "tailwindcss": "^3.2.4",
     "webpack": "^5.75.0"
   }

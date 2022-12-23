@@ -14,8 +14,10 @@ import { endOfWeek } from "date-fns";
 import { isSameMonth } from "date-fns";
 import { isSameDay } from "date-fns";
 
-import { ChevronLeft } from "@mui/icons-material";
-import { ChevronRight } from "@mui/icons-material";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+
+import { classNames } from "utils";
 
 type CalendarProps = {
   selectedDates: Date[];
@@ -32,10 +34,6 @@ const dayStartClasses = [
   "col-start-5", // Friday
   "col-start-6", // Saturday
 ];
-
-const classNames = (classes: Array<string | boolean>) => {
-  return classes.filter(Boolean).join(" ");
-};
 
 export const Calendar = ({
   selectedDates,
@@ -73,23 +71,25 @@ export const Calendar = ({
     <>
       <div className="flex flex-col gap-1 w-full">
         <div className="flex flex-row justify-between items-center mt-4 mb-4">
-          <span className="text-sm font-medium text-slate-700 px-1">
+          <span className="text-sm font-medium text-slate-800 px-1">
             {formatDate(firstDayOfCurrentMonth, "MMMM yyyy")}
           </span>
           <div className="flex flex-row gap-2">
             <button
               type="button"
               onClick={() => previousMonth()}
-              className="text-sm font-medium text-slate-700 rounded-full hover:bg-gray-100 text-center"
+              className="p-1 rounded-full hover:bg-gray-100"
             >
-              {<ChevronLeft />}
+              <span className="sr-only">Previous Month</span>
+              {<ChevronLeftIcon className="h-4 w-4 stroke  text-slate-800" />}
             </button>
             <button
               type="button"
               onClick={() => nextMonth()}
-              className="text-sm font-medium text-slate-700 rounded-full hover:bg-gray-100 text-center"
+              className="p-1 rounded-full hover:bg-gray-100"
             >
-              {<ChevronRight />}
+              <span className="sr-only">Next Month</span>
+              {<ChevronRightIcon className="h-4 w-4 stroke  text-slate-800" />}
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export const Calendar = ({
             return (
               <div
                 key={`weekday-${index}`}
-                className="text-xs text-center font-normal text-slate-400 mx-auto"
+                className="text-xs text-center font-normal text-slate-500 mx-auto"
               >
                 {day}
               </div>
@@ -121,16 +121,20 @@ export const Calendar = ({
                   onClick={() => onDateClick(day)}
                   className={classNames([
                     index === 0 && dayStartClasses[getDay(day)],
-                    isToday(day) && "border-2 border-gray-300",
+                    isToday(day) && "border-2 border-slate-400",
                     isSameMonth(day, firstDayOfCurrentMonth) &&
                       !isSelected &&
-                      "text-slate-700",
+                      "text-slate-800",
                     isSameMonth(day, firstDayOfCurrentMonth) &&
                       isSelected &&
-                      "bg-sky-600 text-white",
+                      "bg-sky-800 text-white",
                     !isSameMonth(day, firstDayOfCurrentMonth) &&
-                      "text-gray-300",
-                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-sky-600 hover:text-white mx-auto",
+                      !isSelected && 
+                      "text-slate-500",
+                    !isSameMonth(day, firstDayOfCurrentMonth) &&
+                      isSelected && 
+                      "bg-sky-800 text-white",
+                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-sky-800 hover:text-white mx-auto",
                   ])}
                 >
                   <time dateTime={formatDate(day, "yyyy-MM-dd")}>
@@ -140,7 +144,7 @@ export const Calendar = ({
                 <div
                   className={classNames([
                     "h-1 w-1 rounded-full mx-auto mt-1",
-                    hasMeeting && "bg-sky-600",
+                    hasMeeting && "bg-sky-800",
                   ])}
                 ></div>
               </div>

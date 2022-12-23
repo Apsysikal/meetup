@@ -125,7 +125,7 @@ export const Event = () => {
                   type="button"
                   name="results"
                   id="results"
-                  variant="secondary"
+                  variant="outlined"
                   onClick={() => navigate("results")}
                 >
                   See results
