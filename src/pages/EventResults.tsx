@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom";
 import { useHref } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 
-import { parseISO } from "date-fns";
-import { format as formatDate } from "date-fns";
+import { ResultsTable } from "components/ResultsTable";
 
 import { getMeeting } from "api/meeting";
 import { getMeetingResponse } from "api/meeting";
@@ -14,10 +13,6 @@ type LoaderParams = {
   params: {
     eventId: string;
   };
-};
-
-const classNames = (classes: Array<string | boolean>) => {
-  return classes.filter(Boolean).join(" ");
 };
 
 export const loader = async ({ params }: LoaderParams) => {
@@ -34,30 +29,6 @@ export const EventResults = () => {
   const href = useHref(`/event/${params.eventId}`);
   const pollLink = window.location.origin + href;
 
-  const mostVotedDate = () => {
-    let currentMostVotedDate = {
-      date: "",
-      votedForCount: 0,
-    };
-
-    meeting.dates.forEach((date) => {
-      let votedCount = 0; // Votes for the current date
-
-      responses.forEach((response) => {
-        response.dates.forEach((responseDate) => {
-          if (responseDate === date) votedCount += 1;
-        });
-      });
-
-      if (votedCount > currentMostVotedDate.votedForCount) {
-        currentMostVotedDate.votedForCount = votedCount;
-        currentMostVotedDate.date = date;
-      }
-    });
-
-    return currentMostVotedDate;
-  };
-
   return (
     <>
       <div className="w-full mx-auto my-auto">
@@ -72,66 +43,7 @@ export const EventResults = () => {
             <p className="text-xs font-medium text-slate-700 mt-2">
               Voting Results
             </p>
-            <div className="overflow-auto border border-sky-600 rounded-md mt-1 shadow-md">
-              <table className="table-auto w-full">
-                <>
-                  <thead className="text-xs font-bold text-slate-700 border-b border-b-sky-600">
-                    <tr>
-                      <th className="text-left px-2 h-8 border-r border-r-sky-600">
-                        Name
-                      </th>
-                      {meeting.dates.map((rawDate, index) => {
-                        const date = parseISO(rawDate);
-
-                        return (
-                          <th
-                            key={`date-header-${index}`}
-                            className={classNames([
-                              rawDate === mostVotedDate().date &&
-                                "bg-amber-400",
-                              "text-center px-2 h-8 border-r border-r-sky-600",
-                              "last:border-r-0",
-                            ])}
-                          >
-                            <div>{formatDate(date, "dd.MM.yy")}</div>
-                            <div>{formatDate(date, "HH:mm")}</div>
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody className="text-sm font-normal text-slate-700">
-                    {responses.map((response, index) => {
-                      return (
-                        <tr
-                          key={`date-row-${index}`}
-                          className="border-b border-b-sky-600 last:border-b-0"
-                        >
-                          <td className="text-left px-2 border-r border-r-sky-600 whitespace-nowrap overflow-clip text-ellipsis">
-                            {response.name}
-                          </td>
-                          {meeting.dates.map((date, index) => {
-                            const selected = response.dates.includes(date);
-
-                            return (
-                              <td
-                                key={`date-row-field-${date + index}`}
-                                className={classNames([
-                                  selected && "bg-green-400",
-                                  !selected && "bg-red-400",
-                                  "text-center px-2 border-r border-r-sky-600",
-                                  "last:border-r-0",
-                                ])}
-                              ></td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </>
-              </table>
-            </div>
+            <ResultsTable meeting={meeting} responses={responses} />
             <div className="flex flex-col mt-2">
               <p className="text-xs font-medium text-slate-700">
                 Share this link with your friends

@@ -24,7 +24,7 @@ type DatabaseMeeting = DataBaseObject & {
 
 type NewMeeting = Omit<DatabaseMeeting, keyof DataBaseObject>;
 
-type ApplicationMeeting = Omit<DatabaseMeeting, keyof DataBaseObject> &
+export type ApplicationMeeting = Omit<DatabaseMeeting, keyof DataBaseObject> &
   ApplicationObject;
 
 type DatabaseMeetingResponse = DataBaseObject & {
@@ -35,7 +35,7 @@ type DatabaseMeetingResponse = DataBaseObject & {
 
 type NewMeetingResponse = Omit<DatabaseMeetingResponse, keyof DataBaseObject>;
 
-type ApplicationMeetingResponse = Omit<
+export type ApplicationMeetingResponse = Omit<
   DatabaseMeetingResponse,
   keyof DataBaseObject
 > &
