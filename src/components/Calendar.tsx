@@ -127,14 +127,14 @@ export const Calendar = ({
                       "text-slate-800",
                     isSameMonth(day, firstDayOfCurrentMonth) &&
                       isSelected &&
-                      "bg-sky-800 text-white",
+                      "bg-primary-800 text-white",
                     !isSameMonth(day, firstDayOfCurrentMonth) &&
-                      !isSelected && 
+                      !isSelected &&
                       "text-slate-500",
                     !isSameMonth(day, firstDayOfCurrentMonth) &&
-                      isSelected && 
-                      "bg-sky-800 text-white",
-                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-sky-800 hover:text-white mx-auto",
+                      isSelected &&
+                      "bg-primary-800 text-white",
+                    "text-xs font-medium p-1 w-7 h-7 rounded-full hover:bg-primary-800 hover:text-white mx-auto",
                   ])}
                 >
                   <time dateTime={formatDate(day, "yyyy-MM-dd")}>
@@ -144,7 +144,7 @@ export const Calendar = ({
                 <div
                   className={classNames([
                     "h-1 w-1 rounded-full mx-auto mt-1",
-                    hasMeeting && "bg-sky-800",
+                    hasMeeting && "bg-primary-800",
                   ])}
                 ></div>
               </div>

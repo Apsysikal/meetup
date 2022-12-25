@@ -154,7 +154,7 @@ export const NewEvent = () => {
                 <span className="text-xs font-semibold text-slate-700">
                   Date
                 </span>
-                <div className="border border-sky-600 rounded-md shadow-md px-2 pb-2">
+                <div className="border border-primary-700 rounded-md shadow-md px-2 pb-2">
                   <Calendar
                     selectedDates={selectedDates}
                     meetings={meetings}

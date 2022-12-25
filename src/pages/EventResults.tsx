@@ -48,7 +48,7 @@ export const EventResults = () => {
               <p className="text-xs font-medium text-slate-700">
                 Share this link with your friends
               </p>
-              <div className="flex flex-row border border-sky-600 rounded-md divide-x divide-sky-600 items-center text-sm font-normal text-slate-700 shadow-md overflow-hidden">
+              <div className="flex flex-row border border-primary-700 rounded-md divide-x divide-primary-700 items-center text-sm font-normal text-slate-700 shadow-md overflow-hidden">
                 <p className="shrink px-2 py-1 whitespace-nowrap overflow-clip text-ellipsis">
                   {pollLink}
                 </p>

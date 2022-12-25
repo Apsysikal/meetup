@@ -93,7 +93,7 @@ export const Event = () => {
                         name="checkbox"
                         type="checkbox"
                         value={date}
-                        className="border border-sky-600 rounded-sm checked:bg-sky-600 checked:hover:bg-sky-700"
+                        className="border border-primary-700 rounded-sm checked:bg-primary-700 checked:hover:bg-primary-700"
                       />
                       <p className="flex flex-row gap-2 text-md font-normal text-slate-700">
                         <span>{formatDate(parsedDate, "dd MMMM yyyy")}</span>

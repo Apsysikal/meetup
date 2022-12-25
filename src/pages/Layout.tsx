@@ -10,7 +10,7 @@ export const Layout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-sky-700 text-white sticky top-0 shadow-lg">
+      <header className="bg-primary-700 text-white sticky top-0 shadow-lg">
         <div className="max-w-lg px-3 py-4 mx-auto flex flex-row gap-2 items-center">
           <h1 className="flex-grow text-3xl font-bold lowercase">Meetup</h1>
           <nav>
