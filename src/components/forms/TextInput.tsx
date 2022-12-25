@@ -19,7 +19,7 @@ export const TextInput = ({
       name={name}
       id={id}
       placeholder={placeholder}
-      className="border-sky-500 rounded-md shadow-md focus:ring-sky-500 focus:border-sky-500 placeholder:text-slate-300 text-slate-700 text-sm"
+      className="border-sky-600 rounded-md shadow-md focus:ring-sky-600 focus:border-sky-600 placeholder:text-slate-300 text-slate-700 text-sm"
     />
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 
 import { format as formatDate } from "date-fns";
 
-import { RemoveCircle } from "@mui/icons-material";
+import { MinusCircleIcon } from "@heroicons/react/24/solid";
 
 type VotingOptionProps = {
   meeting: Date;
@@ -11,7 +11,7 @@ type VotingOptionProps = {
 
 export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
   return (
-    <div className="w-full flex flex-row p-2 border border-sky-500 rounded-md shadow-md items-center">
+    <div className="w-full flex flex-row p-2 border border-sky-600 rounded-md shadow-md items-center bg-white">
       <input
         type="datetime"
         hidden
@@ -27,9 +27,10 @@ export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
       <button
         type="button"
         onClick={() => onRemoveClick(meeting)}
-        className="flex text-slate-700 hover:text-red-500"
+        className="flex overflow-hidden"
       >
-        <RemoveCircle fontSize="inherit" />
+        <span className="sr-only">Remove Voting Option</span>
+        <MinusCircleIcon className="h-4 w-4 text-slate-700 hover:text-red-500" />
       </button>
     </div>
   );

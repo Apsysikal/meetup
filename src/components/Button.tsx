@@ -1,30 +1,87 @@
 import React from "react";
 import { ComponentProps } from "react";
 
+import { classNames } from "utils";
+
 type ButtonProps = ComponentProps<"button"> & {
-  variant?: "primary" | "secondary";
+  variant?: "contained" | "outlined" | "text";
+  size?: "lg" | "md" | "sm";
 };
 
-const primaryClasses =
-  "text-sm font-normal uppercase text-white px-2 py-1 leading-6 bg-sky-500 rounded-md hover:bg-sky-400 active:ring-1 active:ring-sky-400 shadow-md";
+const baseClasses = classNames([
+  "font-normal",
+  "uppercase",
+  "rounded-md",
+]);
 
-const secondaryClasses =
-  "text-sm font-normal uppercase text-sky-500 px-2 py-1 leading-6 bg-white rounded-md border border-sky-500 hover:bg-slate-100 active:ring-1 active:ring-sky-500 shadow-md";
+const containedClasses = classNames([
+  "shadow-md",
+  "text-white",
+  "bg-sky-700",
+  "border",
+  "border-sky-700",
+  "hover:bg-sky-800",
+  "hover:border-sky-800",
+  "active:ring-1",
+  "active:ring-sky-700",
+]);
+
+const outlinedClasses = classNames([
+  "shadow-md",
+  "text-sky-700",
+  "bg-white",
+  "border",
+  "border-sky-700",
+  "hover:bg-slate-100",
+  "active:ring-1",
+  "active:ring-sky-700",
+]);
+
+const textClasses = classNames([
+  "text-inherit",
+  "hover:bg-slate-100/10",
+  "active:bg-slate-100/20",
+]);
+
+const smallClasses = classNames([
+  "text-sm",
+  "px-2",
+  "py-1"
+]);
+
+const mediumClasses = classNames([
+  "text-md",
+  "px-3",
+  "py-1"
+]);
+
+const largeClasses = classNames([
+  "text-lg",
+  "px-4",
+  "py-1"
+]);
 
 export const Button = ({
-  type,
-  name,
-  id,
   children,
-  variant = "primary",
+  variant="contained",
+  size="md",
+  className,
   ...rest
 }: ButtonProps) => {
+  const classes = classNames([
+    variant === "contained" && containedClasses,
+    variant === "outlined" && outlinedClasses,
+    variant === "text" && textClasses,
+    size === "lg" && largeClasses,
+    size === "md" && mediumClasses,
+    size === "sm" && smallClasses,
+    baseClasses,
+    className ? className: ""
+  ]);
+
   return (
     <button
-      type={type}
-      name={name}
-      id={id}
-      className={variant === "primary" ? primaryClasses : secondaryClasses}
+      className={classes}
       {...rest}
     >
       {children}

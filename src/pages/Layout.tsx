@@ -3,33 +3,39 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
+import { Button } from "components/Button";
+
 export const Layout = () => {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-sky-500 text-white sticky top-0 shadow-lg">
+      <header className="bg-sky-700 text-white sticky top-0 shadow-lg">
         <div className="max-w-lg px-3 py-4 mx-auto flex flex-row gap-2 items-center">
           <h1 className="flex-grow text-3xl font-bold lowercase">Meetup</h1>
           <nav>
             <ul className="flex flex-row gap-4 text-sm font-medium">
               <li>
-                <button
+                <Button
                   type="button"
+                  variant="text"
+                  size="sm"
+                  className="text-white"
                   onClick={() => navigate("/")}
-                  className="uppercase hover:underline-offset-2 hover:underline"
                 >
                   Home
-                </button>
+                </Button>
               </li>
               <li>
-                <button
+                <Button
                   type="button"
+                  variant="text"
+                  size="sm"
+                  className="text-white"
                   onClick={() => navigate("/event/new")}
-                  className="uppercase hover:underline-offset-2 hover:underline"
                 >
                   New Event
-                </button>
+                </Button>
               </li>
             </ul>
           </nav>

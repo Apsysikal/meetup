@@ -93,9 +93,9 @@ export const Event = () => {
                         name="checkbox"
                         type="checkbox"
                         value={date}
-                        className="border border-sky-500 rounded-sm checked:bg-sky-500 checked:hover:bg-sky-600"
+                        className="border border-sky-600 rounded-sm checked:bg-sky-600 checked:hover:bg-sky-700"
                       />
-                      <p className="flex flex-row gap-2 text-md font-normal text-slate-600">
+                      <p className="flex flex-row gap-2 text-md font-normal text-slate-700">
                         <span>{formatDate(parsedDate, "dd MMMM yyyy")}</span>
                         <span>{formatDate(parsedDate, "HH:mm")}</span>
                       </p>
@@ -125,7 +125,7 @@ export const Event = () => {
                   type="button"
                   name="results"
                   id="results"
-                  variant="secondary"
+                  variant="outlined"
                   onClick={() => navigate("results")}
                 >
                   See results
