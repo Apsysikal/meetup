@@ -37,67 +37,56 @@ export const ResultsTable = ({ meeting, responses }: ResultsTableProps) => {
   };
 
   return (
-    <div className="overflow-auto border border-sky-600 rounded-md mt-1 shadow-md bg-white">
+    <div className="overflow-auto rounded-md shadow-md bg-white">
       <table className="table-auto w-full">
-        <>
-          <thead
-            className={`text-xs font-bold text-slate-700 ${
-              responses.length > 0 ? "border-b border-b-sky-600" : ""
-            }`}
-          >
-            <tr>
-              <th className="text-left px-2 h-8 border-r border-r-sky-600">
-                Name
-              </th>
-              {meeting.dates.map((rawDate, index) => {
-                const date = parseISO(rawDate);
+        <thead className="font-bold text-slate-700 bg-slate-100">
+          <tr className="divide-x divide-solid divide-slate-300">
+            <th className="text-sm text-left px-4 py-2">Name</th>
+            {meeting.dates.map((rawDate, index) => {
+              const date = parseISO(rawDate);
 
-                return (
-                  <th
-                    key={`date-header-${index}`}
-                    className={classNames([
-                      rawDate === mostVotedDate().date && "bg-amber-400",
-                      "text-center px-2 h-8 border-r border-r-sky-600",
-                      "last:border-r-0",
-                    ])}
-                  >
-                    <div>{formatDate(date, "dd.MM.yy")}</div>
-                    <div>{formatDate(date, "HH:mm")}</div>
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody className="text-sm font-normal text-slate-700">
-            {responses.map((response, index) => {
               return (
-                <tr
-                  key={`date-row-${index}`}
-                  className="border-b border-b-sky-600 last:border-b-0"
+                <th
+                  key={`date-header-${index}`}
+                  className={classNames([
+                    rawDate === mostVotedDate().date && "bg-amber-300",
+                    "text-xs text-center px-4 py-2",
+                  ])}
                 >
-                  <td className="text-left px-2 border-r border-r-sky-600 whitespace-nowrap overflow-clip text-ellipsis">
-                    {response.name}
-                  </td>
-                  {meeting.dates.map((date, index) => {
-                    const selected = response.dates.includes(date);
-
-                    return (
-                      <td
-                        key={`date-row-field-${date + index}`}
-                        className={classNames([
-                          selected && "bg-green-400",
-                          !selected && "bg-red-400",
-                          "text-center px-2 border-r border-r-sky-600",
-                          "last:border-r-0",
-                        ])}
-                      ></td>
-                    );
-                  })}
-                </tr>
+                  <div>{formatDate(date, "dd.MM.yy")}</div>
+                  <div>{formatDate(date, "HH:mm")}</div>
+                </th>
               );
             })}
-          </tbody>
-        </>
+          </tr>
+        </thead>
+        <tbody className="font-normal text-slate-700 divide-y divide-solid divide-slate-300">
+          {responses.map((response, index) => {
+            return (
+              <tr
+                key={`date-row-${index}`}
+                className="divide-x divide-solid divide-slate-300"
+              >
+                <td className="text-sm text-left px-4 py-3 whitespace-nowrap overflow-clip text-ellipsis max-w-[10rem]">
+                  {response.name}
+                </td>
+                {meeting.dates.map((date, index) => {
+                  const selected = response.dates.includes(date);
+
+                  return (
+                    <td
+                      key={`date-row-field-${date + index}`}
+                      className={classNames([
+                        selected && "bg-green-400",
+                        !selected && "bg-red-400",
+                      ])}
+                    ></td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
