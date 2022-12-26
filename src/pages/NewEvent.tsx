@@ -19,6 +19,7 @@ import { isEqual } from "date-fns";
 
 import { Calendar } from "components/Calendar";
 import { TextInput } from "components/forms/TextInput";
+import { TimeInput } from "components/forms/TimeInput";
 import { Button } from "components/Button";
 import { VotingOption } from "components/VotingOption";
 
@@ -167,18 +168,13 @@ export const NewEvent = () => {
                   </span>
                 )}
                 {Boolean(selectedDates.length) ? (
-                  <div className="flex flex-col my-1 gap-1">
-                    <div className="flex flex-row gap-1 items-center w-full">
-                      <p className=" text-sm text-slate-700">Event time:</p>
-                      <input
-                        type="time"
-                        name="meetingTime"
-                        id="meetingTime"
-                        ref={meetingTime}
-                        required
-                        className="border-none text-sm text-slate-700 focus:border-none focus:ring-0"
-                      />
-                    </div>
+                  <div className="flex flex-col my-1 gap-2 w-full">
+                    <TimeInput
+                      name="meetingTime"
+                      id="meetingTime"
+                      label="Event Time"
+                      ref={meetingTime}
+                    />
                     <div>
                       <Button
                         type="button"
