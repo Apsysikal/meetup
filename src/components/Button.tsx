@@ -34,9 +34,9 @@ const outlinedClasses = classNames([
 ]);
 
 const textClasses = classNames([
-  "text-inherit",
-  "hover:bg-slate-100/10",
-  "active:bg-slate-100/20",
+  "text-primary-700",
+  "hover:bg-slate-100",
+  "active:bg-slate-200",
 ]);
 
 const smallClasses = classNames(["text-sm", "px-2", "py-1"]);

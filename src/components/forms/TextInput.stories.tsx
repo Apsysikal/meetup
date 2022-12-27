@@ -15,3 +15,7 @@ const Template: ComponentStory<typeof TextInput> = (args) => (
 );
 
 export const Basic = Template.bind({});
+
+Basic.args = {
+  placeholder: "Basic Placeholder",
+};

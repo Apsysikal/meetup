@@ -115,117 +115,112 @@ export const NewEvent = () => {
 
   return (
     <>
-      <div className="w-full">
-        <div>
-          <div className="w-full">
-            <Form method="post" className="flex flex-col gap-2">
-              <p className="flex flex-col gap-1 w-full">
-                <label
-                  htmlFor="title"
-                  className="text-xs font-semibold text-slate-700"
-                >
-                  Title
-                </label>
-                <TextInput
-                  name="title"
-                  id="title"
-                  placeholder="What is your event about?"
+      <div className="w-full flex flex-col gap-3">
+        <h1 className="text-3xl font-bold text-slate-700">Create new meetup</h1>
+        <Form method="post" className="flex flex-col gap-2">
+          <p className="flex flex-col gap-1 w-full">
+            <label
+              htmlFor="title"
+              className="text-xs font-semibold text-slate-700"
+            >
+              Title
+            </label>
+            <TextInput
+              name="title"
+              id="title"
+              placeholder="What is your event about?"
+            />
+            {Boolean(errors?.title) && (
+              <span className="text-xs font-normal text-red-500">
+                {errors?.title}
+              </span>
+            )}
+          </p>
+          <p className="flex flex-col gap-1 w-full">
+            <label
+              htmlFor="name"
+              className="text-xs font-semibold text-slate-700"
+            >
+              Name
+            </label>
+            <TextInput name="name" id="name" placeholder="John Doe" />
+            {Boolean(errors?.name) && (
+              <span className="text-xs font-normal text-red-500">
+                {errors?.name}
+              </span>
+            )}
+          </p>
+          <div className="flex flex-col gap-1 w-full">
+            <span className="text-xs font-semibold text-slate-700">Date</span>
+            <div className="border border-primary-700 rounded-md shadow-md px-2 pb-2">
+              <Calendar
+                selectedDates={selectedDates}
+                meetings={meetings}
+                onDateClick={handleDateClick}
+              />
+            </div>
+            {Boolean(errors?.dates) && (
+              <span className="text-xs font-normal text-red-500">
+                {errors?.dates}
+              </span>
+            )}
+            {Boolean(selectedDates.length) ? (
+              <div className="flex flex-col my-1 gap-2 w-full">
+                <TimeInput
+                  name="meetingTime"
+                  id="meetingTime"
+                  label="Event Time"
+                  ref={meetingTime}
                 />
-                {Boolean(errors?.title) && (
-                  <span className="text-xs font-normal text-red-500">
-                    {errors?.title}
-                  </span>
-                )}
-              </p>
-              <p className="flex flex-col gap-1 w-full">
-                <label
-                  htmlFor="name"
-                  className="text-xs font-semibold text-slate-700"
-                >
-                  Name
-                </label>
-                <TextInput name="name" id="name" placeholder="John Doe" />
-                {Boolean(errors?.name) && (
-                  <span className="text-xs font-normal text-red-500">
-                    {errors?.name}
-                  </span>
-                )}
-              </p>
-              <div className="flex flex-col gap-1 w-full">
-                <span className="text-xs font-semibold text-slate-700">
-                  Date
-                </span>
-                <div className="border border-primary-700 rounded-md shadow-md px-2 pb-2">
-                  <Calendar
-                    selectedDates={selectedDates}
-                    meetings={meetings}
-                    onDateClick={handleDateClick}
-                  />
+                <div>
+                  <Button
+                    type="button"
+                    name="addEvent"
+                    id="addEvent"
+                    onClick={() => handleAddEventClick()}
+                  >
+                    Add Options
+                  </Button>
                 </div>
-                {Boolean(errors?.dates) && (
-                  <span className="text-xs font-normal text-red-500">
-                    {errors?.dates}
-                  </span>
-                )}
-                {Boolean(selectedDates.length) ? (
-                  <div className="flex flex-col my-1 gap-2 w-full">
-                    <TimeInput
-                      name="meetingTime"
-                      id="meetingTime"
-                      label="Event Time"
-                      ref={meetingTime}
-                    />
-                    <div>
-                      <Button
-                        type="button"
-                        name="addEvent"
-                        id="addEvent"
-                        onClick={() => handleAddEventClick()}
-                      >
-                        Add Options
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <p className="text-xs font-normal text-slate-300">
-                      Select one or multiple dates in the calendar
-                    </p>
-                  </div>
-                )}
               </div>
-              <div className="flex flex-col w-full items-start gap-1">
-                <p className="text-xs font-semibold text-slate-700 mb-1">
-                  Current Voting Options
+            ) : (
+              <div>
+                <p className="text-xs font-normal text-slate-300">
+                  Select one or multiple dates in the calendar
                 </p>
-                {meetings
-                  .sort((a, b) => {
-                    if (isAfter(a, b)) return 1;
-                    if (isBefore(a, b)) return -1;
-                    return 0;
-                  })
-                  .map((meeting, index) => {
-                    return (
-                      <VotingOption
-                        key={`meeting-${index}`}
-                        meeting={meeting}
-                        onRemoveClick={handleOptionDeleteClick}
-                      />
-                    );
-                  })}
               </div>
-              {Boolean(meetings.length) && (
-                <>
-                  <div>
-                    <Button type="submit" name="save" id="save">
-                      Create Poll
-                    </Button>
-                  </div>
-                </>
-              )}
-            </Form>
+            )}
           </div>
-        </div>
+          <div className="flex flex-col w-full items-start gap-1">
+            <p className="text-xs font-semibold text-slate-700 mb-1">
+              Current Voting Options
+            </p>
+            {meetings
+              .sort((a, b) => {
+                if (isAfter(a, b)) return 1;
+                if (isBefore(a, b)) return -1;
+                return 0;
+              })
+              .map((meeting, index) => {
+                return (
+                  <VotingOption
+                    key={`meeting-${index}`}
+                    meeting={meeting}
+                    onRemoveClick={handleOptionDeleteClick}
+                  />
+                );
+              })}
+          </div>
+          {Boolean(meetings.length) && (
+            <>
+              <div>
+                <Button type="submit" name="save" id="save">
+                  Create Poll
+                </Button>
+              </div>
+            </>
+          )}
+        </Form>
       </div>
     </>
   );

@@ -20,10 +20,10 @@ export const Home = () => {
           <CalendarImage className="w-full h-auto" />
         </div>
         <div className="flex flex-col items-center">
-          <h3 className="text-3xl font-bold text-slate-600 text-center">
+          <h1 className="text-3xl font-bold text-slate-700 text-center">
             Welcome to{" "}
             <span className="lowercase text-primary-700">Meetup</span>
-          </h3>
+          </h1>
           <p className="text-md font-medium text-slate-600 text-center">
             Use our app to easily plan events with your friends. Click one of
             the buttons below to get started.

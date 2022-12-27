@@ -41,7 +41,7 @@ export const ResultsTable = ({ meeting, responses }: ResultsTableProps) => {
       <table className="table-auto w-full">
         <thead className="font-bold text-slate-700 bg-slate-100">
           <tr className="divide-x divide-solid divide-slate-300">
-            <th className="text-sm text-left px-4 py-2">Name</th>
+            <th className="text-left px-4 py-2">Name</th>
             {meeting.dates.map((rawDate, index) => {
               const date = parseISO(rawDate);
 
@@ -50,7 +50,7 @@ export const ResultsTable = ({ meeting, responses }: ResultsTableProps) => {
                   key={`date-header-${index}`}
                   className={classNames([
                     rawDate === mostVotedDate().date && "bg-amber-300",
-                    "text-xs text-center px-4 py-2",
+                    "text-sm text-center px-4 py-2",
                   ])}
                 >
                   <div>{formatDate(date, "dd.MM.yy")}</div>
@@ -67,7 +67,7 @@ export const ResultsTable = ({ meeting, responses }: ResultsTableProps) => {
                 key={`date-row-${index}`}
                 className="divide-x divide-solid divide-slate-300"
               >
-                <td className="text-sm text-left px-4 py-3 whitespace-nowrap overflow-clip text-ellipsis max-w-[10rem]">
+                <td className="text-left px-4 py-3 whitespace-nowrap overflow-clip text-ellipsis max-w-[10rem]">
                   {response.name}
                 </td>
                 {meeting.dates.map((date, index) => {
