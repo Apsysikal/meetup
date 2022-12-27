@@ -11,7 +11,7 @@ type VotingOptionProps = {
 
 export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
   return (
-    <div className="w-full flex flex-row p-2 border border-sky-600 rounded-md shadow-md items-center bg-white">
+    <div className="w-full flex flex-row p-2 border border-primary-700 rounded-md shadow-md items-center bg-white">
       <input
         type="datetime"
         hidden
@@ -20,7 +20,7 @@ export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
       />
       <time
         dateTime={formatDate(meeting, "yyyy-MM-dd-HH-mm")}
-        className="text-xs font-medium flex flex-row w-full text-slate-700"
+        className="font-medium flex flex-row w-full text-slate-700"
       >
         {formatDate(meeting, "dd MMMM yyyy HH:mm")}
       </time>
@@ -30,7 +30,7 @@ export const VotingOption = ({ meeting, onRemoveClick }: VotingOptionProps) => {
         className="flex overflow-hidden"
       >
         <span className="sr-only">Remove Voting Option</span>
-        <MinusCircleIcon className="h-4 w-4 text-slate-700 hover:text-red-500" />
+        <MinusCircleIcon className="h-5 w-5 text-slate-700 hover:text-red-500" />
       </button>
     </div>
   );

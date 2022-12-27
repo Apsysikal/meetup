@@ -1,45 +1,17 @@
 import React from "react";
 
-import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
-import { Button } from "components/Button";
+import { NavBar } from "components/NavBar";
+import { NavLink } from "components/NavLink";
 
 export const Layout = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-sky-700 text-white sticky top-0 shadow-lg">
-        <div className="max-w-lg px-3 py-4 mx-auto flex flex-row gap-2 items-center">
-          <h1 className="flex-grow text-3xl font-bold lowercase">Meetup</h1>
-          <nav>
-            <ul className="flex flex-row gap-4 text-sm font-medium">
-              <li>
-                <Button
-                  type="button"
-                  variant="text"
-                  size="sm"
-                  className="text-white"
-                  onClick={() => navigate("/")}
-                >
-                  Home
-                </Button>
-              </li>
-              <li>
-                <Button
-                  type="button"
-                  variant="text"
-                  size="sm"
-                  className="text-white"
-                  onClick={() => navigate("/event/new")}
-                >
-                  New Event
-                </Button>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      <header className="bg-primary-700 text-white sticky top-0 shadow-lg">
+        <NavBar>
+          <NavLink to="/event/new" label="New Event" />
+        </NavBar>
       </header>
       <main className="max-w-lg mx-auto w-full p-3 flex-grow">
         <Outlet />
