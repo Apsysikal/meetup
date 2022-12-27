@@ -25,8 +25,8 @@ export const Home = () => {
             <span className="lowercase text-primary-700">Meetup</span>
           </h1>
           <p className="text-md font-medium text-slate-600 text-center">
-            Use our app to easily plan events with your friends. Click one of
-            the buttons below to get started.
+            Use our app to easily plan events with your friends. Go ahead, click
+            the button below to get started quickly.
           </p>
         </div>
         <div>

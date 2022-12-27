@@ -8,7 +8,7 @@ import { NavLink } from "components/NavLink";
 export const Layout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary-700 text-white sticky top-0 shadow-lg">
+      <header>
         <NavBar>
           <NavLink to="/event/new" label="New Event" />
         </NavBar>
