@@ -18,8 +18,17 @@ model User {
 }
 
 model Event {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  creator       String
+  options       String[]
+  EventResponse EventResponse[]
+}
+
+model EventResponse {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  title   String
-  creator String
+  name    String
   options String[]
+  event   Event    @relation(fields: [eventId], references: [id])
+  eventId String   @db.ObjectId
 }
