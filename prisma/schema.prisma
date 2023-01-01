@@ -16,3 +16,10 @@ model User {
   passwordHash String
   passwordSalt String
 }
+
+model Event {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  title   String
+  creator String
+  options String[]
+}
