@@ -107,6 +107,7 @@ export const CatchBoundary = () => {
           </div>
         </footer>
       </div>
+      <LiveReload />
     </Document>
   );
 };
@@ -150,6 +151,7 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
           </div>
         </footer>
       </div>
+      <LiveReload />
     </Document>
   );
 };

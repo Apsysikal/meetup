@@ -76,14 +76,46 @@ export const requireUserId = async (
   return userId;
 };
 
-export const getRole = async (userId: string) => {
+export const getUser = async (userId: string) => {
   const user = await db.user.findUnique({
-    select: { role: true },
+    select: { id: true, username: true, role: true },
     where: { id: userId },
   });
 
   if (!user) return undefined;
-  if (!user.role) return undefined;
 
-  return { role: user.role };
+  return user;
+};
+
+export const requireUser = async (
+  request: Request,
+  redirectTo: string = new URL(request.url).pathname
+) => {
+  const userId = await requireUserId(request, redirectTo);
+  const user = await getUser(userId);
+
+  if (!user) {
+    throw new Response(
+      "No user with your id found. Did your account get deleted?",
+      { status: 400, statusText: "Bad Request" }
+    );
+  }
+
+  return user;
+};
+
+export const requireAdminUser = async (
+  request: Request,
+  redirectTo: string = new URL(request.url).pathname
+) => {
+  const user = await requireUser(request, redirectTo);
+
+  if (user.role !== "admin") {
+    throw new Response("You don't have access to this section of the app", {
+      status: 403,
+      statusText: "Forbidden",
+    });
+  }
+
+  return user;
 };
