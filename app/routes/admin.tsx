@@ -21,12 +21,14 @@ export default function AdminRoute() {
   const { user } = useLoaderData<typeof loader>();
 
   return (
-    <>
-      <p className="text-gray-700 font-semibold">
-        Hey <span className="text-emerald-700">{user.username}</span>, Welcome
-        to the admin section.
+    <div className="flex flex-col gap-2">
+      <h1 className="text-3xl font-bold text-gray-700">Admin Section</h1>
+      <p className="text-gray-700">
+        Hey{" "}
+        <span className="text-emerald-700 font-semibold">{user.username}</span>,
+        welcome to the admin section.
       </p>
       <Outlet />
-    </>
+    </div>
   );
 }
