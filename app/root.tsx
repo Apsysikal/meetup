@@ -1,4 +1,5 @@
 import { Links } from "@remix-run/react";
+import { Meta } from "@remix-run/react";
 import { LiveReload } from "@remix-run/react";
 import { Outlet } from "@remix-run/react";
 import { Scripts } from "@remix-run/react";
@@ -6,6 +7,7 @@ import { useCatch } from "@remix-run/react";
 
 import type { ReactNode } from "react";
 
+import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
 
 import { NavBar } from "~/components/NavBar";
@@ -15,23 +17,49 @@ import styles from "~/styles/app.css";
 
 export const links: LinksFunction = () => [
   {
+    rel: "icon",
+    href: "/favicon.ico",
+  },
+  {
+    rel: "apple-touch-icon",
+    href: "/apple-touch-icon.png",
+    type: "image/png",
+    sizes: "180x180",
+  },
+  {
+    rel: "manifest",
+    href: "/manifest.json",
+  },
+  {
     rel: "stylesheet",
     href: styles,
   },
 ];
+
+export const meta: MetaFunction = () => ({
+  title: "Meetup",
+  "og:title": "Meetup",
+  charset: "utf-8",
+  description:
+    "Use meetup to easily plan events with your friends. Create a poll and share it without the need to log in.",
+  "og-description":
+    "Use meetup to easily plan events with your friends. Create a poll and share it without the need to log in.",
+  keywords: "Event,Planning,Datefinder,Poll,Survey,Date,Meetup,Meeting",
+  viewport: "width=device-width, initial-scale=1.0",
+  "og-image:url": "/og-image.png",
+  "og-image:alt": "Meetup Logo",
+});
 
 type DocumentProps = {
   children?: ReactNode;
   title?: string;
 };
 
-function Document({ children, title = "Meetup" }: DocumentProps) {
+function Document({ children }: DocumentProps) {
   return (
     <html>
       <head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Meta />
         <Links />
       </head>
       <body>{children}</body>
