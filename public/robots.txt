@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /event/
+Allow: /event/new
+
+Sitemap: /sitemap.txt

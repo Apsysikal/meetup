@@ -38,6 +38,8 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => ({
   title: "Meetup",
+  author: "Benedikt Schniepp",
+  "google-site-verification": "JPt2Um2RhOtcxaAp9OG-1uHTR9gipfBRkpM_W4CNvqM",
   "og:title": "Meetup",
   charset: "utf-8",
   description:
