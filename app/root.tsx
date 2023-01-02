@@ -57,7 +57,7 @@ type DocumentProps = {
 
 function Document({ children }: DocumentProps) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <Meta />
         <Links />
