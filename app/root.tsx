@@ -38,18 +38,16 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => ({
   title: "Meetup",
+  "og:title": "Meetup",
   author: "Benedikt Schniepp",
   "google-site-verification": "JPt2Um2RhOtcxaAp9OG-1uHTR9gipfBRkpM_W4CNvqM",
-  "og:title": "Meetup",
   charset: "utf-8",
   description:
     "Use meetup to easily plan events with your friends. Create a poll and share it without the need to log in.",
-  "og-description":
+  "og:description":
     "Use meetup to easily plan events with your friends. Create a poll and share it without the need to log in.",
   keywords: "Event,Planning,Datefinder,Poll,Survey,Date,Meetup,Meeting",
   viewport: "width=device-width, initial-scale=1.0",
-  "og-image:url": "/og-image.png",
-  "og-image:alt": "Meetup Logo",
 });
 
 type DocumentProps = {

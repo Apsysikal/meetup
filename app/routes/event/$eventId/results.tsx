@@ -3,10 +3,29 @@ import { useLoaderData } from "@remix-run/react";
 import { json } from "@remix-run/node";
 
 import type { LoaderArgs } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 
 import { ResultsTable } from "~/components/ResultsTable";
 
 import { db } from "~/utils/db.server";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (!data) {
+    return {
+      title: "No event",
+      "og:title": "No event",
+      description: "No event found",
+      "og:description": "No event found",
+    };
+  }
+
+  return {
+    title: `Meetup Results: ${data.event.title}`,
+    "og:title": `Meetup Results: ${data.event.title}`,
+    description: `Check the results for ${data.event.title}.`,
+    "og:description": `Check the results for ${data.event.title}.`,
+  };
+};
 
 export const loader = async ({ request, params }: LoaderArgs) => {
   const event = await db.event.findUnique({

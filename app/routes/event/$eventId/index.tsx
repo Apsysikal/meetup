@@ -9,6 +9,7 @@ import { json } from "@remix-run/node";
 import { format } from "date-fns";
 import { parseISO } from "date-fns";
 
+import type { MetaFunction } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 
@@ -17,6 +18,24 @@ import { Button } from "~/components/Button";
 
 import { db } from "~/utils/db.server";
 import { badRequest } from "~/utils/request.server";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  if (!data) {
+    return {
+      title: "No event",
+      "og:title": "No event",
+      description: "No event found",
+      "og:description": "No event found",
+    };
+  }
+
+  return {
+    title: `Meetup: ${data.event.title}`,
+    "og:title": `Meetup: ${data.event.title}`,
+    description: `You have been invited to ${data.event.title} by ${data.event.creator}. Make sure to let them know about your availability.`,
+    "og:description": `You have been invited to ${data.event.title} by ${data.event.creator}. Make sure to let them know about your availability.`,
+  };
+};
 
 function validateName(name: string | null) {
   if (!name) return "You must provide a name";
