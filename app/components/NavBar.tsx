@@ -13,7 +13,7 @@ export const NavBar = ({ children }: NavBarProps) => {
         Meetup
       </Link>
       <nav>
-        <ul className="flex flex-row gap-1">{children}</ul>
+        <ul className="flex flex-row gap-1 items-center">{children}</ul>
       </nav>
     </div>
   );

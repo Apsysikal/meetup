@@ -4,14 +4,22 @@ import { LiveReload } from "@remix-run/react";
 import { Outlet } from "@remix-run/react";
 import { Scripts } from "@remix-run/react";
 import { useCatch } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
+import { Form } from "@remix-run/react";
 
 import type { ReactNode } from "react";
 
+import { json } from "@remix-run/node";
+
+import type { LoaderArgs } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
 
 import { NavBar } from "~/components/NavBar";
 import { NavLink } from "~/components/NavLink";
+
+import { getUserId } from "~/utils/session.server";
+import { getUser } from "~/utils/session.server";
 
 import styles from "~/styles/app.css";
 
@@ -156,13 +164,51 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
   );
 };
 
+export const loader = async ({ request }: LoaderArgs) => {
+  const userId = await getUserId(request);
+
+  if (!userId) {
+    return json({
+      user: null,
+    });
+  }
+
+  const user = await getUser(userId);
+
+  if (!user) {
+    return json({
+      user: null,
+    });
+  }
+
+  return json({
+    user: user,
+  });
+};
+
 export default function App() {
+  const { user } = useLoaderData<typeof loader>();
+
   return (
     <Document>
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
           <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
+            <NavLink to="/event/new">New Event</NavLink>
+            <div className="max-sm:hidden">
+              {user ? (
+                <Form action="/logout" method="post">
+                  <button
+                    type="submit"
+                    className="px-2 py-1 font-normal uppercase rounded-md hover:bg-slate-100/10 active:bg-slate-100/20 whitespace-nowrap"
+                  >
+                    Logout
+                  </button>
+                </Form>
+              ) : (
+                <NavLink to="/login">Login</NavLink>
+              )}
+            </div>
           </NavBar>
         </header>
         <main className="max-w-lg mx-auto w-full p-3 grow">

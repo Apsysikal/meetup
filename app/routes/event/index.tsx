@@ -1,4 +1,3 @@
-import { Button } from "~/components/Button";
 import { CustomLink } from "~/components/Link";
 
 export default function EventIndexRoute() {

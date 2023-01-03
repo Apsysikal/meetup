@@ -37,6 +37,16 @@ export const login = async (username: string, password: string) => {
   return { id: user.id, username };
 };
 
+export const logout = async (request: Request) => {
+  const session = await getUserSession(request);
+
+  return redirect("/", {
+    headers: {
+      "Set-Cookie": await sessionStorage.destroySession(session),
+    },
+  });
+};
+
 export const createUserSession = async (userId: string, redirectTo: string) => {
   const session = await sessionStorage.getSession();
   session.set("userId", userId);
