@@ -17,11 +17,9 @@ type NavBarProps = {
 
 const MobileNavLink = ({ to, label }: { to: string; label: string }) => {
   return (
-    <li>
-      <Link to={to} className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2">
-        {label}
-      </Link>
-    </li>
+    <Link to={to} className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2">
+      {label}
+    </Link>
   );
 };
 
@@ -52,8 +50,8 @@ const MobileNavbar = ({ username, userRole }: NavBarProps) => {
           </Popover.Button>
           <Popover.Panel className="absolute z-10 right-0 border-gray-50 bg-white rounded-lg shadow-xl overflow-hidden">
             <div className="flex flex-col text-gray-700 whitespace-nowrap py-2">
-              {LINKS.map(({ to, label }) => {
-                return <MobileNavLink to={to} label={label} />;
+              {LINKS.map(({ to, label }, index) => {
+                return <MobileNavLink key={index} to={to} label={label} />;
               })}
 
               {userRole === "admin" && (
