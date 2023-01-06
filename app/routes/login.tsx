@@ -80,9 +80,9 @@ export default function LoginRoute() {
   const actionData = useActionData<typeof action>();
 
   return (
-    <div className="flex flex-col gap-5 items-center">
-      <h1 className="text-3xl font-bold text-gray-700">Login</h1>
-      <Form method="post" className="flex flex-col gap-3">
+    <div className="flex flex-col gap-5 items-center w-full">
+      <h1 className="text-4xl font-bold text-gray-700">Login</h1>
+      <Form method="post" className="flex flex-col gap-3 w-full max-w-sm">
         <input
           type="hidden"
           name="redirectTo"
@@ -98,7 +98,7 @@ export default function LoginRoute() {
           <TextInput
             name="username"
             id="username"
-            placeholder="What is your event about?"
+            placeholder="Username"
             defaultValue={actionData?.fields?.username}
             aria-invalid={Boolean(actionData?.fieldErrors?.username)}
             aria-errormessage={
@@ -120,12 +120,12 @@ export default function LoginRoute() {
             htmlFor="password"
             className="text-md font-semibold text-slate-700"
           >
-            Username
+            Password
           </label>
           <PasswordInput
             name="password"
             id="password"
-            placeholder="What is your event about?"
+            placeholder="Password"
             defaultValue={actionData?.fields?.password}
             aria-invalid={Boolean(actionData?.fieldErrors?.password)}
             aria-errormessage={
