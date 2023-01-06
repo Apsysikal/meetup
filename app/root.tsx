@@ -4,14 +4,20 @@ import { LiveReload } from "@remix-run/react";
 import { Outlet } from "@remix-run/react";
 import { Scripts } from "@remix-run/react";
 import { useCatch } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 
 import type { ReactNode } from "react";
 
+import { json } from "@remix-run/node";
+
+import type { LoaderArgs } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
 
-import { NavBar } from "~/components/NavBar";
-import { NavLink } from "~/components/NavLink";
+import { NavBar } from "~/components/navbar";
+
+import { getUserId } from "~/utils/session.server";
+import { getUser } from "~/utils/session.server";
 
 import styles from "~/styles/app.css";
 
@@ -74,9 +80,7 @@ export const CatchBoundary = () => {
     <Document>
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
-          </NavBar>
+          <NavBar />
         </header>
         <main className="flex flex-col grow gap-5 p-3 items-center max-w-lg mx-auto w-full">
           <h1 className="text-3xl font-bold text-red-700 uppercase text-center">
@@ -107,6 +111,7 @@ export const CatchBoundary = () => {
           </div>
         </footer>
       </div>
+      <LiveReload />
     </Document>
   );
 };
@@ -116,9 +121,7 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
     <Document title="Application Error">
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
-          </NavBar>
+          <NavBar />
         </header>
         <main className="flex flex-col grow gap-5 p-3 items-center max-w-lg mx-auto w-full">
           <h1 className="text-3xl font-bold text-red-700 uppercase text-center">
@@ -150,18 +153,41 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
           </div>
         </footer>
       </div>
+      <LiveReload />
     </Document>
   );
 };
 
+export const loader = async ({ request }: LoaderArgs) => {
+  const userId = await getUserId(request);
+
+  if (!userId) {
+    return json({
+      user: null,
+    });
+  }
+
+  const user = await getUser(userId);
+
+  if (!user) {
+    return json({
+      user: null,
+    });
+  }
+
+  return json({
+    user: user,
+  });
+};
+
 export default function App() {
+  const { user } = useLoaderData<typeof loader>();
+
   return (
     <Document>
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
-          </NavBar>
+          <NavBar username={user?.username} userRole={user?.role} />
         </header>
         <main className="max-w-lg mx-auto w-full p-3 grow">
           <Outlet />

@@ -1,6 +1,6 @@
 import { useNavigate } from "@remix-run/react";
 
-import { Button } from "~/components/Button";
+import { Button } from "~/components/button";
 
 export default function IndexRoute() {
   const navigate = useNavigate();

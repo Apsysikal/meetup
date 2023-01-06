@@ -1,13 +1,20 @@
+import { Link } from "@remix-run/react";
+
 import { clsx } from "clsx";
 
 import type { ComponentProps } from "react";
 
-type ButtonProps = ComponentProps<"button"> & {
+type LinkProps = ComponentProps<typeof Link> & {
   variant?: "contained" | "outlined" | "text";
   size?: "lg" | "md" | "sm";
 };
 
-const baseClasses = clsx(["font-normal", "uppercase", "rounded-md"]);
+const baseClasses = clsx([
+  "font-normal",
+  "uppercase",
+  "rounded-md",
+  "text-center",
+]);
 
 const containedClasses = clsx([
   "shadow-md",
@@ -44,13 +51,13 @@ const mediumClasses = clsx(["text-md", "px-3", "py-1"]);
 
 const largeClasses = clsx(["text-lg", "px-4", "py-1"]);
 
-export const Button = ({
+export const CustomLink = ({
   children,
   variant = "contained",
   size = "md",
   className,
   ...rest
-}: ButtonProps) => {
+}: LinkProps) => {
   const classes = clsx([
     variant === "contained" && containedClasses,
     variant === "outlined" && outlinedClasses,
@@ -63,8 +70,8 @@ export const Button = ({
   ]);
 
   return (
-    <button className={classes} {...rest}>
+    <Link className={classes} {...rest}>
       {children}
-    </button>
+    </Link>
   );
 };

@@ -15,11 +15,12 @@ import { parseISO } from "date-fns";
 
 import type { ActionArgs } from "@remix-run/node";
 
-import { Button } from "~/components/Button";
-import { Calendar } from "~/components/Calendar";
-import { VotingOption } from "~/components/VotingOption";
-import { TextInput } from "~/components/forms/TextInput";
-import { TimeInput } from "~/components/forms/TimeInput";
+import { Button } from "~/components/button";
+import { Calendar } from "~/components/calendar";
+import { VotingOption } from "~/components/voting-option";
+import { Label } from "~/components/form-elements";
+import { Input } from "~/components/form-elements";
+import { FieldError } from "~/components/form-elements";
 
 import { db } from "~/utils/db.server";
 import { badRequest } from "~/utils/request.server";
@@ -130,13 +131,9 @@ export default function EventNewRoute() {
         <h1 className="text-3xl font-bold text-slate-700">Create new meetup</h1>
         <Form method="post" className="flex flex-col gap-2">
           <p className="flex flex-col gap-1 w-full">
-            <label
-              htmlFor="title"
-              className="text-md font-semibold text-slate-700"
-            >
-              Title
-            </label>
-            <TextInput
+            <Label htmlFor="title">Title</Label>
+            <Input
+              type="text"
               name="title"
               id="title"
               placeholder="What is your event about?"
@@ -147,19 +144,15 @@ export default function EventNewRoute() {
               }
             />
             {actionData?.fieldErrors?.title && (
-              <p className="text-xs text-red-500" role="alert" id="title-error">
+              <FieldError id="title-error">
                 {actionData.fieldErrors.title}
-              </p>
+              </FieldError>
             )}
           </p>
           <p className="flex flex-col gap-1 w-full">
-            <label
-              htmlFor="name"
-              className="text-md font-semibold text-slate-700"
-            >
-              Name
-            </label>
-            <TextInput
+            <Label htmlFor="name">Name</Label>
+            <Input
+              type="text"
               name="name"
               id="name"
               placeholder="John Doe"
@@ -170,9 +163,9 @@ export default function EventNewRoute() {
               }
             />
             {actionData?.fieldErrors?.name && (
-              <p className="text-xs text-red-500" role="alert" id="name-error">
+              <FieldError id="name-error">
                 {actionData.fieldErrors.name}
-              </p>
+              </FieldError>
             )}
           </p>
           <span className="text-md font-semibold text-slate-700">Date</span>
@@ -185,13 +178,15 @@ export default function EventNewRoute() {
           </div>
           {Boolean(dates.length) && (
             <div className="flex flex-col my-1 gap-2 w-full">
-              <TimeInput
-                name="meetingTime"
-                id="meetingTime"
-                label="Event Time"
-                ref={meetingTime}
-              />
-              <div>
+              <Label htmlFor="meetingTime">Event Time</Label>
+              <div className="flex justify-between">
+                <Input
+                  type="time"
+                  name="meetingTime"
+                  id="meetingTime"
+                  defaultValue="00:00"
+                  ref={meetingTime}
+                />
                 <Button
                   type="button"
                   name="addEvent"

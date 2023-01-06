@@ -1,6 +1,5 @@
 import { useActionData } from "@remix-run/react";
 import { useLoaderData } from "@remix-run/react";
-import { useNavigate } from "@remix-run/react";
 import { Form } from "@remix-run/react";
 
 import { redirect } from "@remix-run/node";
@@ -13,8 +12,11 @@ import type { MetaFunction } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 
-import { TextInput } from "~/components/forms/TextInput";
-import { Button } from "~/components/Button";
+import { Button } from "~/components/button";
+import { Input } from "~/components/form-elements";
+import { Label } from "~/components/form-elements";
+import { FieldError } from "~/components/form-elements";
+import { CustomLink } from "~/components/button-link";
 
 import { db } from "~/utils/db.server";
 import { badRequest } from "~/utils/request.server";
@@ -115,7 +117,6 @@ export const loader = async ({ params }: LoaderArgs) => {
 };
 
 export default function EventRoute() {
-  const navigate = useNavigate();
   const { event } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
 
@@ -154,13 +155,9 @@ export default function EventRoute() {
                 })}
               </div>
               <div className="flex flex-col gap-1 w-full mt-2">
-                <label
-                  htmlFor="name"
-                  className="text-xs font-semibold text-slate-700"
-                >
-                  Name
-                </label>
-                <TextInput
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  type="text"
                   name="name"
                   id="name"
                   placeholder="John Doe"
@@ -171,28 +168,18 @@ export default function EventRoute() {
                   }
                 />
                 {actionData?.fieldErrors?.name && (
-                  <p
-                    className="text-xs text-red-500"
-                    role="alert"
-                    id="name-error"
-                  >
+                  <FieldError id="name-error">
                     {actionData.fieldErrors.name}
-                  </p>
+                  </FieldError>
                 )}
               </div>
               <div className="grid grid-cols-1 gap-1 md:grid-cols-2">
                 <Button type="submit" name="save" id="save">
                   Save
                 </Button>
-                <Button
-                  type="button"
-                  name="results"
-                  id="results"
-                  variant="outlined"
-                  onClick={() => navigate("results")}
-                >
+                <CustomLink to="results" variant="outlined">
                   See results
-                </Button>
+                </CustomLink>
               </div>
             </Form>
           </article>
