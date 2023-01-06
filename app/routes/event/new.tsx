@@ -15,11 +15,9 @@ import { parseISO } from "date-fns";
 
 import type { ActionArgs } from "@remix-run/node";
 
-import { Button } from "~/components/Button";
-import { Calendar } from "~/components/Calendar";
-import { VotingOption } from "~/components/VotingOption";
-// import { TextInput } from "~/components/forms/TextInput";
-// import { TimeInput } from "~/components/forms/TimeInput";
+import { Button } from "~/components/button";
+import { Calendar } from "~/components/calendar";
+import { VotingOption } from "~/components/voting-option";
 import { Label } from "~/components/form-elements";
 import { Input } from "~/components/form-elements";
 import { FieldError } from "~/components/form-elements";

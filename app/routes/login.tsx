@@ -7,7 +7,7 @@ import type { ActionArgs } from "@remix-run/node";
 import { Label } from "~/components/form-elements";
 import { Input } from "~/components/form-elements";
 import { FieldError } from "~/components/form-elements";
-import { Button } from "~/components/Button";
+import { Button } from "~/components/button";
 
 import { login } from "~/utils/session.server";
 import { createUserSession } from "~/utils/session.server";

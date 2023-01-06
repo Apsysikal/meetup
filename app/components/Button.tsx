@@ -1,8 +1,6 @@
 import { clsx } from "clsx";
 
-import type { ComponentProps } from "react";
-
-type ButtonProps = ComponentProps<"button"> & {
+type ButtonProps = JSX.IntrinsicElements["button"] & {
   variant?: "contained" | "outlined" | "text";
   size?: "lg" | "md" | "sm";
 };

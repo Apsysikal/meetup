@@ -1,4 +1,4 @@
-import { CustomLink } from "~/components/Link";
+import { CustomLink } from "~/components/button-link";
 
 export default function EventIndexRoute() {
   return (

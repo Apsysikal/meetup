@@ -5,9 +5,6 @@ import { Outlet } from "@remix-run/react";
 import { Scripts } from "@remix-run/react";
 import { useCatch } from "@remix-run/react";
 import { useLoaderData } from "@remix-run/react";
-import { Form } from "@remix-run/react";
-
-import { Popover } from "@headlessui/react";
 
 import type { ReactNode } from "react";
 
@@ -17,8 +14,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { LinksFunction } from "@remix-run/node";
 
-import { NavBar } from "~/components/NavBar";
-import { NavLink } from "~/components/NavLink";
+import { NavBar } from "~/components/navbar";
 
 import { getUserId } from "~/utils/session.server";
 import { getUser } from "~/utils/session.server";
@@ -84,9 +80,7 @@ export const CatchBoundary = () => {
     <Document>
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
-          </NavBar>
+          <NavBar />
         </header>
         <main className="flex flex-col grow gap-5 p-3 items-center max-w-lg mx-auto w-full">
           <h1 className="text-3xl font-bold text-red-700 uppercase text-center">
@@ -127,9 +121,7 @@ export const ErrorBoundary = ({ error }: { error: Error }) => {
     <Document title="Application Error">
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            <NavLink to="/event/new">NEW EVENT</NavLink>
-          </NavBar>
+          <NavBar />
         </header>
         <main className="flex flex-col grow gap-5 p-3 items-center max-w-lg mx-auto w-full">
           <h1 className="text-3xl font-bold text-red-700 uppercase text-center">
@@ -195,61 +187,7 @@ export default function App() {
     <Document>
       <div className="flex flex-col h-screen">
         <header className="bg-emerald-700 text-white sticky shadow-xl">
-          <NavBar>
-            {user && <p className="px-2 font-semibold">{user.username}</p>}
-            <Popover className="relative">
-              <Popover.Button className="flex p-1 rounded-md hover:bg-gray-100/10 active:bg-gray-100/20">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              </Popover.Button>
-              <Popover.Panel className="absolute z-10 right-0 border-gray-50 bg-white rounded-lg shadow-xl overflow-hidden">
-                <div className="flex flex-col text-gray-700 whitespace-nowrap py-2">
-                  <a
-                    href="/event/new"
-                    className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2"
-                  >
-                    New Event
-                  </a>
-                  {user?.role === "admin" && (
-                    <a
-                      href="/admin"
-                      className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2"
-                    >
-                      Admin
-                    </a>
-                  )}
-                  {user ? (
-                    <Form
-                      action="/logout"
-                      method="post"
-                      className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2"
-                    >
-                      <button type="submit">Logout</button>
-                    </Form>
-                  ) : (
-                    <a
-                      href="/login"
-                      className="hover:bg-gray-200 active:bg-slate-100 px-5 py-2"
-                    >
-                      Login
-                    </a>
-                  )}
-                </div>
-              </Popover.Panel>
-            </Popover>
-          </NavBar>
+          <NavBar username={user?.username} userRole={user?.role} />
         </header>
         <main className="max-w-lg mx-auto w-full p-3 grow">
           <Outlet />

@@ -4,7 +4,7 @@ import { json } from "@remix-run/node";
 
 import { LoaderArgs } from "@remix-run/node";
 
-import { StatsCard } from "~/components/StatsCard";
+import { StatsCard } from "~/components/stats-card";
 
 import { db } from "~/utils/db.server";
 import { requireAdminUser } from "~/utils/session.server";

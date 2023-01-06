@@ -5,7 +5,7 @@ import { json } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 
-import { ResultsTable } from "~/components/ResultsTable";
+import { ResultsTable } from "~/components/results-table";
 
 import { db } from "~/utils/db.server";
 

@@ -12,11 +12,11 @@ import type { MetaFunction } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 
-import { Button } from "~/components/Button";
+import { Button } from "~/components/button";
 import { Input } from "~/components/form-elements";
 import { Label } from "~/components/form-elements";
 import { FieldError } from "~/components/form-elements";
-import { CustomLink } from "~/components/Link";
+import { CustomLink } from "~/components/button-link";
 
 import { db } from "~/utils/db.server";
 import { badRequest } from "~/utils/request.server";
