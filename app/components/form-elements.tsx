@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 import { clsx } from "clsx";
 
 type LabelProps = JSX.IntrinsicElements["label"];
@@ -13,13 +15,17 @@ export const Label = ({ className, ...props }: LabelProps) => {
 
 type InputProps = JSX.IntrinsicElements["input"];
 
-export const Input = ({ className, ...props }: InputProps) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { className, ...props },
+  ref
+) {
   return (
     <input
       {...props}
+      ref={ref}
       className={clsx(
         "border-emerald-700 focus:border-emerald-700",
-        "focus:ring-emerald-700 focus:ring-offset-2",
+        "focus:ring-2 focus:ring-emerald-700 focus:ring-offset-2",
         "text-gray-700",
         "placeholder:text-gray-300",
         "rounded-md shadow-md",
@@ -27,7 +33,7 @@ export const Input = ({ className, ...props }: InputProps) => {
       )}
     />
   );
-};
+});
 
 type FieldErrorProps = JSX.IntrinsicElements["p"] & {
   id: Pick<JSX.IntrinsicElements["p"], "id">;
@@ -38,12 +44,14 @@ export const FieldError = ({
   id,
   role = "alert",
   className,
-  children,
   ...props
 }: FieldErrorProps) => {
   return (
-    <p id={id} role={role} {...props} className={clsx()}>
-      {children}
-    </p>
+    <p
+      id={id}
+      role={role}
+      {...props}
+      className={clsx("text-xs text-red-500", className)}
+    />
   );
 };

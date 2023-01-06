@@ -12,8 +12,10 @@ import type { MetaFunction } from "@remix-run/node";
 import type { ActionArgs } from "@remix-run/node";
 import type { LoaderArgs } from "@remix-run/node";
 
-import { TextInput } from "~/components/forms/TextInput";
 import { Button } from "~/components/Button";
+import { Input } from "~/components/form-elements";
+import { Label } from "~/components/form-elements";
+import { FieldError } from "~/components/form-elements";
 import { CustomLink } from "~/components/Link";
 
 import { db } from "~/utils/db.server";
@@ -153,13 +155,9 @@ export default function EventRoute() {
                 })}
               </div>
               <div className="flex flex-col gap-1 w-full mt-2">
-                <label
-                  htmlFor="name"
-                  className="text-xs font-semibold text-slate-700"
-                >
-                  Name
-                </label>
-                <TextInput
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  type="text"
                   name="name"
                   id="name"
                   placeholder="John Doe"
@@ -170,13 +168,9 @@ export default function EventRoute() {
                   }
                 />
                 {actionData?.fieldErrors?.name && (
-                  <p
-                    className="text-xs text-red-500"
-                    role="alert"
-                    id="name-error"
-                  >
+                  <FieldError id="name-error">
                     {actionData.fieldErrors.name}
-                  </p>
+                  </FieldError>
                 )}
               </div>
               <div className="grid grid-cols-1 gap-1 md:grid-cols-2">

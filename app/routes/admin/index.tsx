@@ -48,7 +48,7 @@ export default function AdminIndexRoute() {
         <div className="col-span-1">
           <StatsCard
             title="Average Responses"
-            stat={`${data.responseCount / data.eventCount}`}
+            stat={`${(data.responseCount / data.eventCount).toFixed(2)}`}
             statDescription="Responses per Event"
           />
         </div>

@@ -4,8 +4,9 @@ import { useSearchParams } from "@remix-run/react";
 
 import type { ActionArgs } from "@remix-run/node";
 
-import { TextInput } from "~/components/forms/TextInput";
-import { PasswordInput } from "~/components/forms/PasswordInput";
+import { Label } from "~/components/form-elements";
+import { Input } from "~/components/form-elements";
+import { FieldError } from "~/components/form-elements";
 import { Button } from "~/components/Button";
 
 import { login } from "~/utils/session.server";
@@ -89,13 +90,9 @@ export default function LoginRoute() {
           value={searchParams.get("redirect") ?? undefined}
         />
         <p className="flex flex-col gap-1">
-          <label
-            htmlFor="username"
-            className="text-md font-semibold text-slate-700"
-          >
-            Username
-          </label>
-          <TextInput
+          <Label htmlFor="username">Username</Label>
+          <Input
+            type="text"
             name="username"
             id="username"
             placeholder="Username"
@@ -106,23 +103,15 @@ export default function LoginRoute() {
             }
           />
           {actionData?.fieldErrors?.username && (
-            <p
-              className="text-xs text-red-500"
-              role="alert"
-              id="username-error"
-            >
+            <FieldError id="username-error">
               {actionData.fieldErrors.username}
-            </p>
+            </FieldError>
           )}
         </p>
         <p className="flex flex-col gap-1">
-          <label
-            htmlFor="password"
-            className="text-md font-semibold text-slate-700"
-          >
-            Password
-          </label>
-          <PasswordInput
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="password"
             name="password"
             id="password"
             placeholder="Password"
@@ -133,13 +122,9 @@ export default function LoginRoute() {
             }
           />
           {actionData?.fieldErrors?.password && (
-            <p
-              className="text-xs text-red-500"
-              role="alert"
-              id="password-error"
-            >
+            <FieldError id="password-error">
               {actionData.fieldErrors.password}
-            </p>
+            </FieldError>
           )}
         </p>
         <div>
